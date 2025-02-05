@@ -1,0 +1,128 @@
+<script type="text/javascript">
+    let dictionary = null
+    function loadDataFeeds (node, dictionary) {
+        console.log(node.name);
+        console.log(node.feeds);
+        console.log(dictionary);
+        $("#feeds-eva").css({width: "100%", height: "100%"}).treeList('data', dictionary);
+    }
+
+    function setSelectedOnAll (value) {
+        const feeds = $("#feeds-eva").treeList('data');
+        console.log('feeds')
+        $("#feeds-eva").treeList('data', feeds.map((d) => {
+            d.selected = value;
+            return d;
+        }));
+    }
+    RED.nodes.registerType('iss-data-streamer',{
+        category: 'ISS',
+        paletteLabel: 'ISS Data',
+        color: '#75B3EE',
+        defaults: {
+            name: {value: ""},
+            outputType: { value: 'raw' },
+            feeds: {value: []},
+        },
+        inputs: 0,
+        outputs: 1,
+        icon: "satellite.svg",
+        oneditprepare: function () {
+            const node = this
+
+            this._resize = function() {
+                var rows = $("#dialog-form>div.form-row");
+                var height = $("#dialog-form").height();
+                for (var i=0;i<rows.length;i++) {
+                    height -= $(rows[i]).outerHeight(true);
+                }
+                var editorRow = $("#dialog-form>div#node-input-feeds-list");
+                editorRow.css("height", height + "px");
+            };
+            
+            $("#feeds-eva")
+                .treeList({ multi:true })
+
+            if (!dictionary) {
+                $.getJSON('resources/@joepavitt/node-red-iss-data-streamer/telemetry-dictionary.json', function(data) {
+                    dictionary = data.map((d) => {
+                        return {
+                            label: d.Public_PUI,
+                            checkbox: true,
+                            sublabel: `${d.Category}`,
+                            selected: node.feeds.includes(d.Public_PUI)
+                        }
+                    });
+                    loadDataFeeds(this, dictionary);
+                });
+            } else {
+                loadDataFeeds(this, dictionary);
+            }
+
+            $('#node-input-feeds-list-deselect-all').on('click', function() {
+                $('#feeds-eva').treeList('clearSelection');
+                setSelectedOnAll(false);
+            });
+
+            $('#node-input-feeds-list-select-all').on('click', function() {
+                setSelectedOnAll(true);
+            });
+        },
+        oneditresize: function(size) {
+            this._resize();
+        },
+        oneditsave: function() {
+            const node = this
+            const feeds = $("#feeds-eva").treeList('selected').map((d) => {
+                return d.label;
+            });
+            console.log('feeds')
+            console.log(feeds)
+            node.feeds = feeds;
+            node.dirty = true;
+            RED.view.redraw();
+        },
+        label: function() {
+            return this.name || `ISS Data`
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="iss-data-streamer">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-rss"></i> Output</label>
+        <select id="node-input-outputType">
+            <option value="raw">Raw</option>
+            <option value="formatted">Formatted</option>
+            <option value="both">Both</option>
+        </select>
+    </div>
+    <div id="node-input-feeds-list" style="position: relative; min-height: 100px">
+        <div class="node-input-feeds-list-header">
+            <label style="font-weight: bold; cursor: default">Feeds</label>
+            <div class="inline-actions">
+                <button class="editor-button editor-button-small" id="node-input-feeds-list-deselect-all">Deselect All</button>
+                <button class="editor-button editor-button-small" id="node-input-feeds-list-select-all">Select All</button>
+            </div>
+        </div>
+        <div id="feeds-eva"></div>
+    </div>
+</script>
+
+<style>
+    #node-input-feeds-list {
+        --red-ui-list-item-background-selected: #e3f2fd;
+    }
+    #node-input-feeds-list .red-ui-treeList-label.focus {
+        background-color: #e3f2fd;
+    }
+    .node-input-feeds-list-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+</style>

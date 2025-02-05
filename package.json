@@ -1,0 +1,25 @@
+{
+    "name": "@joepavitt/node-red-iss-data-streamer",
+    "version": "0.1.0",
+    "description": "Node-RED node to subscribe to the Lightstreamer data feed from the International Space Station",
+    "author": {
+        "name": "Joe Pavitt",
+        "url": "https://github.com/joepavitt"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/joepavitt/node-red-iss-data-streamer"
+    },
+    "license": "Apache-2.0",
+    "keywords": [
+        "node-red"
+    ],
+    "node-red": {
+        "nodes": {
+            "iss-data-streamer": "nodes/iss-data-streamer.js"
+        }
+    },
+    "dependencies": {
+        "lightstreamer-client-node": "^9.2.1"
+    }
+}

@@ -1,0 +1,756 @@
+<script type="text/html" data-help-name="iss-data-streamer">
+    <div class="iss-data-streamer-help">
+        <p>
+            This node wraps the I.S.S. Lightstreamer feed, emitting real-time telemetry from the International Space Station.
+        </p>
+        <p>
+            It was heavily inspired by the <a href="https://github.com/ISS-Mimic/Mimic" target="_blank">ISS Mimic Project</a>,
+            and this node can be used in Node-RED to create your own ISS Mimic and Dashboard.
+        </p>
+        <h2>Output</h2>
+        <p>
+            The node outputs a message for each telemetry feed that is received from the I.S.S. Lightstreamer feed.
+            You can configure the format of the output with the "Output" option. The options are:
+        </p>
+        <ul>
+            <li>
+                <strong>Raw</strong> - The raw data from the Lightstreamer feed, with no modifications</li>
+            <li>
+                <strong>Formatted</strong> - Each feed has a designated _type_, this output type will format
+                the data into a more human-readable format, so numbers will display as numbers, or any feed
+                with a key map (e.g. <code>0=OFF, 1=ON</code>) will output the human-readable format.
+            </li>
+            <li>
+                <strong>Both</strong> - This outputs a JSON structure with the keys <code>raw</code> and <code>formatted</code>,
+                so you can access both data types
+            </li>
+        </ul>
+        <h2>Feeds</h2>
+        <p>Each feed is detailed below, grouped by "category".</p>
+        <h3>ADCO</h3>
+        <dl class="message-properties">
+            <dt>USLAB000001 <span class="property-type">0&#x3D;NOT IN USE|1&#x3D;IN USE</span></dt>
+            <dd>Control Moment Gyroscope (CMG)-1 On-Line</dd>
+            <dt>USLAB000002 <span class="property-type">0&#x3D;NOT IN USE|1&#x3D;IN USE</span></dt>
+            <dd>Control Moment Gyroscope (CMG)-2 On-Line</dd>
+            <dt>USLAB000003 <span class="property-type">0&#x3D;NOT IN USE|1&#x3D;IN USE</span></dt>
+            <dd>Control Moment Gyroscope (CMG)-3 On-Line</dd>
+            <dt>USLAB000004 <span class="property-type">0&#x3D;NOT IN USE|1&#x3D;IN USE</span></dt>
+            <dd>Control Moment Gyroscope (CMG)-4 On-Line</dd>
+            <dt>USLAB000005 <span class="property-type">{0:d0}</span></dt>
+            <dd>Number of Control Moment Gyroscope (CMG)s Online</dd>
+            <dt>USLAB000006 <span class="property-type">{0:f4}</span></dt>
+            <dd>Control Moment Gyroscope (CMG) Control Torque - Roll (N-m)</dd>
+            <dt>USLAB000007 <span class="property-type">{0:f4}</span></dt>
+            <dd>Control Moment Gyroscope (CMG) Control Torque - Pitch (N-m)</dd>
+            <dt>USLAB000008 <span class="property-type">{0:f4}</span></dt>
+            <dd>Control Moment Gyroscope (CMG) Control Torque - Yaw (N-m)</dd>
+            <dt>USLAB000009 <span class="property-type">{0:d0}</span></dt>
+            <dd>Active Control Moment Gyroscope (CMG) Momentum (Nms)</dd>
+            <dt>USLAB000011 <span class="property-type">0&#x3D;ENABLED|1&#x3D;INHIBITED</span></dt>
+            <dd>Desaturation Request (Enabled&#x2F;Inhibited)</dd>
+            <dt>USLAB000013 <span class="property-type">0&#x3D;NONE|1&#x3D;GPS1|2&#x3D;GPS2|3&#x3D;Russian_Attitude|4&#x3D;Ku_Band</span></dt>
+            <dd>US Attitude Source</dd>
+            <dt>USLAB000014 <span class="property-type">0&#x3D;NONE|1&#x3D;RGA1|2&#x3D;RGA2|3&#x3D;RUSSIAN</span></dt>
+            <dd>US Rate Source</dd>
+            <dt>USLAB000015 <span class="property-type">0&#x3D;NO_SOURCE|1&#x3D;Unused|2&#x3D;Unused|3&#x3D;RUSSIAN|4&#x3D;GPS1_DETERMINISTIC|5&#x3D;GPS2_DETERMINISTIC|6&#x3D;GROUND</span></dt>
+            <dd>US State Vector Source</dd>
+            <dt>USLAB000016 <span class="property-type">0&#x3D;ATTITUDE HOLD|1&#x3D;TEA</span></dt>
+            <dd>Attitude Controller Type</dd>
+            <dt>USLAB000017 <span class="property-type">0&#x3D;LVLH|1&#x3D;Inertial|2&#x3D;XPOP</span></dt>
+            <dd>Attitude Control Reference Frame</dd>
+            <dt>USLAB000018 <span class="property-type">{0:f2}</span></dt>
+            <dd>US Current Local Vertical Local Horizontal (LVLH) Attitude Quaternion Component 0</dd>
+            <dt>USLAB000019 <span class="property-type">{0:f2}</span></dt>
+            <dd>US Current Local Vertical Local Horizontal (LVLH) Attitude Quaternion Component 1</dd>
+            <dt>USLAB000020 <span class="property-type">{0:f2}</span></dt>
+            <dd>US Current Local Vertical Local Horizontal (LVLH) Attitude Quaternion Component 2</dd>
+            <dt>USLAB000021 <span class="property-type">{0:f2}</span></dt>
+            <dd>US Current Local Vertical Local Horizontal (LVLH) Attitude Quaternion Component 3</dd>
+            <dt>USLAB000022 <span class="property-type">{0:f2}</span></dt>
+            <dd>US Attitude Roll Error (deg)</dd>
+            <dt>USLAB000023 <span class="property-type">{0:f2}</span></dt>
+            <dd>US Attitude Pitch Error (deg)</dd>
+            <dt>USLAB000024 <span class="property-type">{0:f2}</span></dt>
+            <dd>US Attitude Yaw Error (deg)</dd>
+            <dt>USLAB000025 <span class="property-type">{0:f2}</span></dt>
+            <dd>US Inertial Attitude Rate X (deg&#x2F;s)</dd>
+            <dt>USLAB000026 <span class="property-type">{0:f2}</span></dt>
+            <dd>US Inertial Attitude Rate Y (deg&#x2F;s)</dd>
+            <dt>USLAB000027 <span class="property-type">{0:f2}</span></dt>
+            <dd>US Inertial Attitude Rate Z (deg&#x2F;s)</dd>
+            <dt>USLAB000028 <span class="property-type">{0:f6}</span></dt>
+            <dd>US Commanded Attitude Quaternion Component 0</dd>
+            <dt>USLAB000029 <span class="property-type">{0:f6}</span></dt>
+            <dd>US Commanded Attitude Quaternion Component 1</dd>
+            <dt>USLAB000030 <span class="property-type">{0:f6}</span></dt>
+            <dd>US Commanded Attitude Quaternion Component 2</dd>
+            <dt>USLAB000031 <span class="property-type">{0:f6}</span></dt>
+            <dd>US Commanded Attitude Quaternion Component 3</dd>
+            <dt>USLAB000038 <span class="property-type">{0:d0}</span></dt>
+            <dd>Active Control Moment Gyroscope (CMG) Momentum Capacity (Nms)</dd>
+            <dt>USLAB000039 <span class="property-type">{0:d0}</span></dt>
+            <dd>ISS Total Mass (kg)</dd>
+            <dt>USLAB000040 <span class="property-type">{0:f2}</span></dt>
+            <dd>Solar Beta Angle (degrees)</dd>
+            <dt>USLAB000041 <span class="property-type">0&#x3D;FALSE|1&#x3D;TRUE</span></dt>
+            <dd>Loss of CMG Attitude Control (LOAC) Caution Message In Alarm</dd>
+            <dt>USLAB000042 <span class="property-type">0&#x3D;FALSE|1&#x3D;TRUE</span></dt>
+            <dd>Loss of ISS Attitude Control (LOAC) Caution Message In Alarm</dd>
+            <dt>USLAB000043 <span class="property-type">0&#x3D;DOING POSITION FIXES|1&#x3D;SV TIMING|2&#x3D;APPROXIMATE TIMING|3&#x3D;GPS TIME|4&#x3D;NEED INITIALIZATION|5&#x3D;GDOP NEEDED|6&#x3D;BAD TIMING|7&#x3D;NO USABLE SV|8&#x3D;ONLY 1 USABLE SVs|9&#x3D;ONLY 2 USABLE SVs|10&#x3D;ONLY 3 USABLE SVs|11&#x3D;BAD INTEGRITY|12&#x3D;NO VEL AVAIL|13&#x3D;UNUSABLE FIX</span></dt>
+            <dd>Global Positioning System (GPS-1) Ops Status</dd>
+            <dt>USLAB000044 <span class="property-type">0&#x3D;DOING POSITION FIXES|1&#x3D;SV TIMING|2&#x3D;APPROXIMATE TIMING|3&#x3D;GPS TIME|4&#x3D;NEED INITIALIZATION|5&#x3D;GDOP NEEDED|6&#x3D;BAD TIMING|7&#x3D;NO USABLE SV|8&#x3D;ONLY 1 USABLE SVs|9&#x3D;ONLY 2 USABLE SVs|10&#x3D;ONLY 3 USABLE SVs|11&#x3D;BAD INTEGRITY|12&#x3D;NO VEL AVAIL|13&#x3D;UNUSABLE FIX</span></dt>
+            <dd>Global Positioning System (GPS-2) Ops Status</dd>
+            <dt>USLAB000045 <span class="property-type">{0:f1}</span></dt>
+            <dd>Spin Motor Spin Bearing Temperature - Control Moment Gyroscope (CMG) 1 (deg C)</dd>
+            <dt>USLAB000046 <span class="property-type">{0:f1}</span></dt>
+            <dd>Spin Motor Spin Bearing Temperature - Control Moment Gyroscope (CMG) 2 (deg C)</dd>
+            <dt>USLAB000047 <span class="property-type">{0:f1}</span></dt>
+            <dd>Spin Motor Spin Bearing Temperature - Control Moment Gyroscope (CMG) 3 (deg C)</dd>
+            <dt>USLAB000048 <span class="property-type">{0:f1}</span></dt>
+            <dd>Spin Motor Spin Bearing Temperature - Control Moment Gyroscope (CMG) 4 (deg C)</dd>
+            <dt>USLAB000049 <span class="property-type">{0:f1}</span></dt>
+            <dd>Hall Resolver Spin Bearing Temperature - Control Moment Gyroscope (CMG) 1 (deg C)</dd>
+            <dt>USLAB000050 <span class="property-type">{0:f1}</span></dt>
+            <dd>Hall Resolver Spin Bearing Temperature - Control Moment Gyroscope (CMG) 2 (deg C)</dd>
+            <dt>USLAB000051 <span class="property-type">{0:f1}</span></dt>
+            <dd>Hall Resolver Spin Bearing Temperature - Control Moment Gyroscope (CMG) 3 (deg C)</dd>
+            <dt>USLAB000052 <span class="property-type">{0:f1}</span></dt>
+            <dd>Hall Resolver Spin Bearing Temperature - Control Moment Gyroscope (CMG) 4 (deg C)</dd>
+            <dt>Z1000001 <span class="property-type">{0:f2}</span></dt>
+            <dd>Control Moment Gyroscope (CMG)-1 Vibration (g)</dd>
+            <dt>Z1000002 <span class="property-type">{0:f2}</span></dt>
+            <dd>Control Moment Gyroscope (CMG)-2 Vibration (g)</dd>
+            <dt>Z1000003 <span class="property-type">{0:f2}</span></dt>
+            <dd>Control Moment Gyroscope (CMG)-3 Vibration (g)</dd>
+            <dt>Z1000004 <span class="property-type">{0:f2}</span></dt>
+            <dd>Control Moment Gyroscope (CMG)-4 Vibration (g)</dd>
+            <dt>Z1000005 <span class="property-type">{0:f2}</span></dt>
+            <dd>Control Moment Gyroscope (CMG)-1 Spin Motor Current (amps)</dd>
+            <dt>Z1000006 <span class="property-type">{0:f2}</span></dt>
+            <dd>Control Moment Gyroscope (CMG)-2 Spin Motor Current (amps)</dd>
+            <dt>Z1000007 <span class="property-type">{0:f2}</span></dt>
+            <dd>Control Moment Gyroscope (CMG)-3 Spin Motor Current (amps)</dd>
+            <dt>Z1000008 <span class="property-type">{0:f2}</span></dt>
+            <dd>Control Moment Gyroscope (CMG)-4 Spin Motor Current (amps)</dd>
+            <dt>Z1000009 <span class="property-type">{0:d0}</span></dt>
+            <dd>Control Moment Gyroscope (CMG) 1 Wheel Speed (rpm)</dd>
+            <dt>Z1000010 <span class="property-type">{0:d0}</span></dt>
+            <dd>Control Moment Gyroscope (CMG) 2 Wheel Speed (rpm)</dd>
+            <dt>Z1000011 <span class="property-type">{0:d0}</span></dt>
+            <dd>Control Moment Gyroscope (CMG) 3 Wheel Speed (rpm)</dd>
+            <dt>Z1000012 <span class="property-type">{0:d0}</span></dt>
+            <dd>Control Moment Gyroscope (CMG) 4 Wheel Speed (rpm)</dd>
+        </dl>
+        <h3>CDH</h3>
+        <dl class="message-properties">
+            <dt>AIRLOCK000058 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>Airlock Multiplexer&#x2F;Demultiplexer (MDM) on-off status</dd>
+            <dt>NODE1000001 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>Node 1 Multiplexer&#x2F;Demultiplexer (MDM) 1 on-off status</dd>
+            <dt>NODE1000002 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>Node 1 Multiplexer&#x2F;Demultiplexer (MDM) 2 on-off status</dd>
+            <dt>NODE2000004 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>Node 2 Multiplexer&#x2F;Demultiplexer (MDM) 2 on-off status</dd>
+            <dt>NODE2000005 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>Node 2 Multiplexer&#x2F;Demultiplexer (MDM) 1 on-off status</dd>
+            <dt>NODE3000014 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>Hub Control Zone (HCZ) Multiplexer&#x2F;Demultiplexer 2 (MDM) on-off status</dd>
+            <dt>NODE3000015 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>Node 3 Multiplexer&#x2F;Demultiplexer (MDM) 2 on-off status</dd>
+            <dt>NODE3000016 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>Hub Control Zone (HCZ) Multiplexer&#x2F;Demultiplexer 1 (MDM) on-off status</dd>
+            <dt>NODE3000020 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>Node 3 Multiplexer&#x2F;Demultiplexer (MDM) 1 on-off status</dd>
+            <dt>P1000006 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>P1 Truss Multiplexer&#x2F;Demultiplexer (MDM) 1 on-off status</dd>
+            <dt>P1000008 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>Port Thermal Radiator (STR) Multiplexer&#x2F;Demultiplexer (MDM) on-off status</dd>
+            <dt>P1000009 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>P1 Truss Multiplexer&#x2F;Demultiplexer (MDM) 2 on-off status</dd>
+            <dt>P3000001 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>P3 Truss Multiplexer&#x2F;Demultiplexer (MDM) 1 on-off status</dd>
+            <dt>P3000002 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>P3 Truss Multiplexer&#x2F;Demultiplexer (MDM) 2 on-off status</dd>
+            <dt>P4000003 <span class="property-type">0&#x3D;Not Enabled|1&#x3D;Enabled</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 2A Multiplexer&#x2F;Demultiplexer (MDM) 120 Volt On-Off Status</dd>
+            <dt>P4000006 <span class="property-type">0&#x3D;Not Enabled|1&#x3D;Enabled</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 4A Multiplexer&#x2F;Demultiplexer (MDM) 120 Volt On-Off Status</dd>
+            <dt>P6000003 <span class="property-type">0&#x3D;Not Enabled|1&#x3D;Enabled</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 4B Multiplexer&#x2F;Demultiplexer (MDM) 120 Volt On-Off Status</dd>
+            <dt>P6000006 <span class="property-type">0&#x3D;Not Enabled|1&#x3D;Enabled</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 2B Multiplexer&#x2F;Demultiplexer (MDM) 120 Volt On-Off Status</dd>
+            <dt>S0000010 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>External Control Zone Multiplexer&#x2F;Demultiplexer (MDM) 1 on-off status</dd>
+            <dt>S0000011 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>S0 Truss Multiplexer&#x2F;Demultiplexer (MDM) 1 on-off status</dd>
+            <dt>S0000012 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>External Control Zone Multiplexer&#x2F;Demultiplexer (MDM) 2 on-off status</dd>
+            <dt>S0000013 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>S0 Truss Multiplexer&#x2F;Demultiplexer (MDM) 2 on-off status</dd>
+            <dt>S1000006 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>Starboard Thermal Radiator (STR) Multiplexer&#x2F;Demultiplexer (MDM) on-off status</dd>
+            <dt>S1000007 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>S1 Truss Multiplexer&#x2F;Demultiplexer (MDM) 1 on-off status</dd>
+            <dt>S1000008 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>S1 Truss Multiplexer&#x2F;Demultiplexer (MDM) 2 on-off status</dd>
+            <dt>S3000001 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>S3 Truss Multiplexer&#x2F;Demultiplexer (MDM) 1 on-off status</dd>
+            <dt>S3000002 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>S3 Truss Multiplexer&#x2F;Demultiplexer (MDM) 2 on-off status</dd>
+            <dt>S4000003 <span class="property-type">0&#x3D;Not Enabled|1&#x3D;Enabled</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 1A Multiplexer&#x2F;Demultiplexer (MDM) 120 Volt On-Off Status</dd>
+            <dt>S4000006 <span class="property-type">0&#x3D;Not Enabled|1&#x3D;Enabled</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 3A Multiplexer&#x2F;Demultiplexer (MDM) 120 Volt On-Off Status</dd>
+            <dt>S6000003 <span class="property-type">0&#x3D;Not Enabled|1&#x3D;Enabled</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 3B Multiplexer&#x2F;Demultiplexer (MDM) 120 Volt On-Off Status</dd>
+            <dt>S6000006 <span class="property-type">0&#x3D;Not Enabled|1&#x3D;Enabled</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 1B Multiplexer&#x2F;Demultiplexer (MDM) 120 Volt On-Off Status</dd>
+            <dt>USLAB000066 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>Command and Control (C&amp;C) Multiplexer&#x2F;Demultiplexer (MDM) 1 on-off status</dd>
+            <dt>USLAB000067 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>Command and Control (C&amp;C) Multiplexer&#x2F;Demultiplexer (MDM) 2 on-off status</dd>
+            <dt>USLAB000068 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>Command and Control (C&amp;C) Multiplexer&#x2F;Demultiplexer (MDM) 3 on-off status</dd>
+            <dt>USLAB000069 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>Internal Control Zone Multiplexer&#x2F;Demultiplexer (MDM) 1 on-off status</dd>
+            <dt>USLAB000070 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>Internal Control Zone Multiplexer&#x2F;Demultiplexer (MDM) 2 on-off status</dd>
+            <dt>USLAB000071 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>Payload (PL) Multiplexer&#x2F;Demultiplexer (MDM) 1 on-off status</dd>
+            <dt>USLAB000072 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>Payload (PL) Multiplexer&#x2F;Demultiplexer (MDM) 2 on-off status</dd>
+            <dt>USLAB000073 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>Guidance, Navigation and Control (GNC) Multiplexer&#x2F;Demultiplexer 1 on-off status</dd>
+            <dt>USLAB000074 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>Guidance, Navigation and Control (GNC) Multiplexer&#x2F;Demultiplexer 2 on-off status</dd>
+            <dt>USLAB000075 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>Power Mangement Controller Unit (PMCU) 1 Multiplexer&#x2F;Demultiplexer 1 on-off status</dd>
+            <dt>USLAB000076 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>Power Mangement Controller Unit (PMCU) 2 Multiplexer&#x2F;Demultiplexer 1 on-off status</dd>
+            <dt>USLAB000077 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>US Lab Multiplexer&#x2F;Demultiplexer (MDM) 1 on-off status</dd>
+            <dt>USLAB000078 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>US Lab Multiplexer&#x2F;Demultiplexer (MDM) 2 on-off status</dd>
+            <dt>USLAB000079 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>US Lab Multiplexer&#x2F;Demultiplexer (MDM) 3 on-off status</dd>
+            <dt>USLAB000080 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>Permanent Multipurpose Module - System Power voltage status</dd>
+        </dl>
+        <h3>CATO</h3>
+        <dl class="message-properties">
+            <dt>P1000004 <span class="property-type">{0:f2}</span></dt>
+            <dd>S-Band Radio Frequency Group (RFG 2) Azimuth Gimbal Position</dd>
+            <dt>P1000005 <span class="property-type">{0:f2}</span></dt>
+            <dd>S-Band Radio Frequency Group (RFG 2) Elevation Gimbal Position</dd>
+            <dt>P1000007 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>S-Band Radio Frequency Group (RFG 2), on-off status</dd>
+            <dt>S1000004 <span class="property-type">{0:f2}</span></dt>
+            <dd>S-Band Radio Frequency Group (RFG 1) Azimuth Gimbal Position</dd>
+            <dt>S1000009 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>S-Band Radio Frequency Group (RFG 1), on-off status</dd>
+            <dt>USLAB000088 <span class="property-type">0&#x3D;INACTIVE|1&#x3D;ACTIVE</span></dt>
+            <dd>Ku-Band Video Downlink Channel 1 Activity</dd>
+            <dt>USLAB000089 <span class="property-type">0&#x3D;INACTIVE|1&#x3D;ACTIVE</span></dt>
+            <dd>Ku-Band Video Downlink Channel 2 Activity</dd>
+            <dt>USLAB000090 <span class="property-type">0&#x3D;INACTIVE|1&#x3D;ACTIVE</span></dt>
+            <dd>Ku-Band Video Downlink Channel 3 Activity</dd>
+            <dt>USLAB000091 <span class="property-type">0&#x3D;INACTIVE|1&#x3D;ACTIVE</span></dt>
+            <dd>Ku-Band Video Downlink Channel 4 Activity</dd>
+            <dt>USLAB000092 <span class="property-type">1&#x3D;String 1|2&#x3D;String 2</span></dt>
+            <dd>Active String of S-Band</dd>
+            <dt>USLAB000093 <span class="property-type">0&#x3D;Backup|1&#x3D;Active</span></dt>
+            <dd>Internal Audio Controller (IAC) - IAC-1 Active&#x2F;Backup Indication</dd>
+            <dt>USLAB000094 <span class="property-type">0&#x3D;Backup|1&#x3D;Active</span></dt>
+            <dd>Internal Audio Controller (IAC) - IAC-2 Active&#x2F;Backup Indication</dd>
+            <dt>USLAB000095 <span class="property-type">0&#x3D; -|1&#x3D;S3AFT|2&#x3D;S1UPOB|3&#x3D;SCU1 Mux|4&#x3D;S1LOOB|5&#x3D;JPM a|6&#x3D;JPM b|7&#x3D;S1UPIB|8&#x3D;S1LOIB|9&#x3D;COL 1|10&#x3D;COL 2|11&#x3D;P1UPIB|12&#x3D;SCU2 Mux|13&#x3D;NOD3S|14&#x3D;P1LOIB|15&#x3D;SCU1 Test|16&#x3D;WETA112|17&#x3D;ORB1|18&#x3D;ORB2|19&#x3D;P1LOOB|20&#x3D;SCU2 Test|21&#x3D;P3AFT|22&#x3D;Payload Rack|23&#x3D;VTR1|24&#x3D;VTR2|25&#x3D;NOD2LO|26&#x3D;WETA115|28&#x3D;LAB S|31&#x3D;POA PL3|32&#x3D;POA|33&#x3D;SPDMS1|34&#x3D;SPDMS2|35&#x3D;MBS CLPA|36&#x3D;SPDMLEE|37&#x3D;MAST|40&#x3D;BLEE|43&#x3D;BELB|48&#x3D;TELB|50&#x3D;MSS PL3|51&#x3D;TLEE|52&#x3D;Lab AVU1|53&#x3D;Lab AVU2|54&#x3D;Cup AVU1|55&#x3D;Cup AVU2|56&#x3D;OTCM1|57&#x3D;BODY1|58&#x3D;OTCM2|59&#x3D;BODY2|60&#x3D;SSRMS PL1|61&#x3D;SSRMS PL2|62&#x3D;SSRMS PL3|63&#x3D;MSS PL1|64&#x3D;MSS PL2|65&#x3D;LAB1D3|66&#x3D;LAB1P2|67&#x3D;LAB1P4|68&#x3D;LABCAM|69&#x3D;LAB1O5|70&#x3D;LAB1O4|71&#x3D;LAB1O3|72&#x3D;LAB1O2|73&#x3D;LAB1O1|74&#x3D;LAB1S1|75&#x3D;LAB1S2|76&#x3D;LAB1S3|77&#x3D;A&#x2F;L CAM|78&#x3D;LAB1S4|79&#x3D;N1 CAM|80&#x3D;N3 CAM</span></dt>
+            <dd>Video Source Routed to Downlink 1</dd>
+            <dt>USLAB000096 <span class="property-type">0&#x3D; -|1&#x3D;S3AFT|2&#x3D;S1UPOB|3&#x3D;SCU1 Mux|4&#x3D;S1LOOB|5&#x3D;JPM a|6&#x3D;JPM b|7&#x3D;S1UPIB|8&#x3D;S1LOIB|9&#x3D;COL 1|10&#x3D;COL 2|11&#x3D;P1UPIB|12&#x3D;SCU2 Mux|13&#x3D;NOD3S|14&#x3D;P1LOIB|15&#x3D;SCU1 Test|16&#x3D;WETA112|17&#x3D;ORB1|18&#x3D;ORB2|19&#x3D;P1LOOB|20&#x3D;SCU2 Test|21&#x3D;P3AFT|22&#x3D;Payload Rack|23&#x3D;VTR1|24&#x3D;VTR2|25&#x3D;NOD2LO|26&#x3D;WETA115|28&#x3D;LAB S|31&#x3D;POA PL3|32&#x3D;POA|33&#x3D;SPDMS1|34&#x3D;SPDMS2|35&#x3D;MBS CLPA|36&#x3D;SPDMLEE|37&#x3D;MAST|40&#x3D;BLEE|43&#x3D;BELB|48&#x3D;TELB|50&#x3D;MSS PL3|51&#x3D;TLEE|52&#x3D;Lab AVU1|53&#x3D;Lab AVU2|54&#x3D;Cup AVU1|55&#x3D;Cup AVU2|56&#x3D;OTCM1|57&#x3D;BODY1|58&#x3D;OTCM2|59&#x3D;BODY2|60&#x3D;SSRMS PL1|61&#x3D;SSRMS PL2|62&#x3D;SSRMS PL3|63&#x3D;MSS PL1|64&#x3D;MSS PL2|65&#x3D;LAB1D3|66&#x3D;LAB1P2|67&#x3D;LAB1P4|68&#x3D;LABCAM|69&#x3D;LAB1O5|70&#x3D;LAB1O4|71&#x3D;LAB1O3|72&#x3D;LAB1O2|73&#x3D;LAB1O1|74&#x3D;LAB1S1|75&#x3D;LAB1S2|76&#x3D;LAB1S3|77&#x3D;A&#x2F;L CAM|78&#x3D;LAB1S4|79&#x3D;N1 CAM|80&#x3D;N3 CAM</span></dt>
+            <dd>Video Source Routed to Downlink 2</dd>
+            <dt>USLAB000097 <span class="property-type">0&#x3D; -|1&#x3D;S3AFT|2&#x3D;S1UPOB|3&#x3D;SCU1 Mux|4&#x3D;S1LOOB|5&#x3D;JPM a|6&#x3D;JPM b|7&#x3D;S1UPIB|8&#x3D;S1LOIB|9&#x3D;COL 1|10&#x3D;COL 2|11&#x3D;P1UPIB|12&#x3D;SCU2 Mux|13&#x3D;NOD3S|14&#x3D;P1LOIB|15&#x3D;SCU1 Test|16&#x3D;WETA112|17&#x3D;ORB1|18&#x3D;ORB2|19&#x3D;P1LOOB|20&#x3D;SCU2 Test|21&#x3D;P3AFT|22&#x3D;Payload Rack|23&#x3D;VTR1|24&#x3D;VTR2|25&#x3D;NOD2LO|26&#x3D;WETA115|28&#x3D;LAB S|31&#x3D;POA PL3|32&#x3D;POA|33&#x3D;SPDMS1|34&#x3D;SPDMS2|35&#x3D;MBS CLPA|36&#x3D;SPDMLEE|37&#x3D;MAST|40&#x3D;BLEE|43&#x3D;BELB|48&#x3D;TELB|50&#x3D;MSS PL3|51&#x3D;TLEE|52&#x3D;Lab AVU1|53&#x3D;Lab AVU2|54&#x3D;Cup AVU1|55&#x3D;Cup AVU2|56&#x3D;OTCM1|57&#x3D;BODY1|58&#x3D;OTCM2|59&#x3D;BODY2|60&#x3D;SSRMS PL1|61&#x3D;SSRMS PL2|62&#x3D;SSRMS PL3|63&#x3D;MSS PL1|64&#x3D;MSS PL2|65&#x3D;LAB1D3|66&#x3D;LAB1P2|67&#x3D;LAB1P4|68&#x3D;LABCAM|69&#x3D;LAB1O5|70&#x3D;LAB1O4|71&#x3D;LAB1O3|72&#x3D;LAB1O2|73&#x3D;LAB1O1|74&#x3D;LAB1S1|75&#x3D;LAB1S2|76&#x3D;LAB1S3|77&#x3D;A&#x2F;L CAM|78&#x3D;LAB1S4|79&#x3D;N1 CAM|80&#x3D;N3 CAM</span></dt>
+            <dd>Video Source Routed to Downlink 3</dd>
+            <dt>USLAB000098 <span class="property-type">0&#x3D; -|1&#x3D;S3AFT|2&#x3D;S1UPOB|3&#x3D;SCU1 Mux|4&#x3D;S1LOOB|5&#x3D;JPM a|6&#x3D;JPM b|7&#x3D;S1UPIB|8&#x3D;S1LOIB|9&#x3D;COL 1|10&#x3D;COL 2|11&#x3D;P1UPIB|12&#x3D;SCU2 Mux|13&#x3D;NOD3S|14&#x3D;P1LOIB|15&#x3D;SCU1 Test|16&#x3D;WETA112|17&#x3D;ORB1|18&#x3D;ORB2|19&#x3D;P1LOOB|20&#x3D;SCU2 Test|21&#x3D;P3AFT|22&#x3D;Payload Rack|23&#x3D;VTR1|24&#x3D;VTR2|25&#x3D;NOD2LO|26&#x3D;WETA115|28&#x3D;LAB S|31&#x3D;POA PL3|32&#x3D;POA|33&#x3D;SPDMS1|34&#x3D;SPDMS2|35&#x3D;MBS CLPA|36&#x3D;SPDMLEE|37&#x3D;MAST|40&#x3D;BLEE|43&#x3D;BELB|48&#x3D;TELB|50&#x3D;MSS PL3|51&#x3D;TLEE|52&#x3D;Lab AVU1|53&#x3D;Lab AVU2|54&#x3D;Cup AVU1|55&#x3D;Cup AVU2|56&#x3D;OTCM1|57&#x3D;BODY1|58&#x3D;OTCM2|59&#x3D;BODY2|60&#x3D;SSRMS PL1|61&#x3D;SSRMS PL2|62&#x3D;SSRMS PL3|63&#x3D;MSS PL1|64&#x3D;MSS PL2|65&#x3D;LAB1D3|66&#x3D;LAB1P2|67&#x3D;LAB1P4|68&#x3D;LABCAM|69&#x3D;LAB1O5|70&#x3D;LAB1O4|71&#x3D;LAB1O3|72&#x3D;LAB1O2|73&#x3D;LAB1O1|74&#x3D;LAB1S1|75&#x3D;LAB1S2|76&#x3D;LAB1S3|77&#x3D;A&#x2F;L CAM|78&#x3D;LAB1S4|79&#x3D;N1 CAM|80&#x3D;N3 CAM</span></dt>
+            <dd>Video Source Routed to Downlink 4</dd>
+            <dt>USLAB000099 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>Space-To-Space Radio (UHF) 1 Power</dd>
+            <dt>USLAB000100 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>Space-To-Space Radio (UHF) 2 Power</dd>
+            <dt>USLAB000101 <span class="property-type">0&#x3D;Frame Sync unlocked|1&#x3D;Frame Sync locked</span></dt>
+            <dd>Space-To-Space Radio Frame Sync Lock</dd>
+            <dt>Z1000013 <span class="property-type">0&#x3D;RESET|1&#x3D;NORMAL</span></dt>
+            <dd>Ku-Band Transmit</dd>
+            <dt>Z1000014 <span class="property-type">{0:f2}</span></dt>
+            <dd>Ku-Band SGANT Elevation Position</dd>
+            <dt>Z1000015 <span class="property-type">{0:f2}</span></dt>
+            <dd>Ku-Band SGANT Cross-Elevation Position</dd>            
+        </dl>
+        <h3>CSA</h3>
+        <dl class="message-properties">
+            <dt>CSAMT000001 <span class="property-type">Position, centimeters from 0</span></dt>
+            <dd>MSS MT Position Float</dd>
+            <dt>CSAMT000001 <span class="property-type">1&#x3D;WS1 | 2&#x3D;WS2 | 3&#x3D;WS3 | 4&#x3D;WS4 | 5&#x3D;WS5 | 6&#x3D;WS6 |7&#x3D;WS7 |8&#x3D;WS8</span></dt>
+            <dd>MSS MT Utility Port ID (which Worksite MT is connected to, WS1 though WS8)</dd>
+            <dt>CSASSRMS001 <span class="property-type">?</span></dt>
+            <dd>MSS EDCD SSRMS Base Location</dd>
+            <dt>CSASSRMS002 <span class="property-type">1&#x3D;Lab | 2&#x3D;Node3 | 4&#x3D;Node2 | 7&#x3D;MBS PDGF 1 | 8&#x3D;MBS PDGF 2 | 11&#x3D;MBS PDGF 3 | 13&#x3D;MBS PDGF 4 | 14&#x3D;FGB | 16&#x3D;POA | 19&#x3D;SSRMS Tip LEE | 63&#x3D;Undefined</span></dt>
+            <dd>MSS EDCD SSRMS Base Location</dd>
+            <dt>CSASSRMS003 <span class="property-type">0&#x3D;Lee A | 5&#x3D;Lee B</span></dt>
+            <dd>MSS EDCD SSRMS Operating Base (Which LEE is Base)</dd>
+            <dt>CSASSRMS004 <span class="property-type">Angle</span></dt>
+            <dd>SSRMS SR Measured Joint Position</dd>
+            <dt>CSASSRMS005 <span class="property-type">Angle</span></dt>
+            <dd>SSRMS SY Measured Joint Position</dd>
+            <dt>CSASSRMS006 <span class="property-type">Angle</span></dt>
+            <dd>SSRMS SP Measured Joint Position</dd>
+            <dt>CSASSRMS007 <span class="property-type">Angle</span></dt>
+            <dd>SSRMS EP Measured Joint Position</dd>
+            <dt>CSASSRMS008 <span class="property-type">Angle</span></dt>
+            <dd>SSRMS WP Measured Joint Position</dd>
+            <dt>CSASSRMS009 <span class="property-type">Angle</span></dt>
+            <dd>SSRMS WY Measured Joint Position</dd>
+            <dt>CSASSRMS010 <span class="property-type">Angle</span></dt>
+            <dd>SSRMS WR Measured Joint Position</dd>
+            <dt>CSASSRMS011 <span class="property-type">0&#x3D;Released|1&#x3D;Captive|2&#x3D;Captured</span></dt>
+            <dd>MSS OCS Payload Status SSRMS Tip LEE</dd>
+            <dt>CSASPDM0001 <span class="property-type">?</span></dt>
+            <dd>MSS OCS Base Location SPDM</dd>
+            <dt>CSASPDM0002 <span class="property-type">1&#x3D;Lab | 2&#x3D;Node3 | 4&#x3D;Node2 | 7&#x3D;MBS PDGF 1 | 8&#x3D;MBS PDGF 2 | 11&#x3D;MBS PDGF 3 | 13&#x3D;MBS PDGF 4 | 14&#x3D;FGB | 16&#x3D;POA | 19&#x3D;SSRMS Tip LEE | 63&#x3D;Undefined</span></dt>
+            <dd>MSS OCS Base Location SPDM</dd>
+            <dt>CSASPDM0003 <span class="property-type">Angle</span></dt>
+            <dd>MSS OCS SPDM 1 SR Measured Joint Position</dd>
+            <dt>CSASPDM0004 <span class="property-type">Angle</span></dt>
+            <dd>MSS OCS SPDM 1 SY Measured Joint Position</dd>
+            <dt>CSASPDM0005 <span class="property-type">Angle</span></dt>
+            <dd>MSS OCS SPDM 1 SP Measured Joint Position</dd>
+            <dt>CSASPDM0006 <span class="property-type">Angle</span></dt>
+            <dd>MSS OCS SPDM 1 EP Measured Joint Position</dd>
+            <dt>CSASPDM0007 <span class="property-type">Angle</span></dt>
+            <dd>MSS OCS SPDM 1 WP Measured Joint Position</dd>
+            <dt>CSASPDM0008 <span class="property-type">Angle</span></dt>
+            <dd>MSS OCS SPDM 1 WY Measured Joint Position</dd>
+            <dt>CSASPDM0009 <span class="property-type">Angle</span></dt>
+            <dd>MSS OCS SPDM 1 WR Measured Joint Position</dd>
+            <dt>CSASPDM0010 <span class="property-type">0&#x3D;Released|1&#x3D;Captive|2&#x3D;Captured</span></dt>
+            <dd>MSS Payload Status OCS SPDM Arm 1 OTCM</dd>
+            <dt>CSASPDM0011 <span class="property-type">Angle</span></dt>
+            <dd>MSS OCS SPDM 2 SR Measured Joint Position</dd>
+            <dt>CSASPDM0012 <span class="property-type">Angle</span></dt>
+            <dd>MSS OCS SPDM 2 SY Measured Joint Position</dd>
+            <dt>CSASPDM0013 <span class="property-type">Angle</span></dt>
+            <dd>MSS OCS SPDM 2 SP Measured Joint Position</dd>
+            <dt>CSASPDM0014 <span class="property-type">Angle</span></dt>
+            <dd>MSS OCS SPDM 2 EP Measured Joint Position</dd>
+            <dt>CSASPDM0015 <span class="property-type">Angle</span></dt>
+            <dd>MSS OCS SPDM 2 WP Measured Joint Position</dd>
+            <dt>CSASPDM0016 <span class="property-type">Angle</span></dt>
+            <dd>MSS OCS SPDM 2 WY Measured Joint Position</dd>
+            <dt>CSASPDM0017 <span class="property-type">Angle</span></dt>
+            <dd>MSS OCS SPDM 2 WR Measured Joint Position</dd>
+            <dt>CSASPDM0018 <span class="property-type">?</span></dt>
+            <dd>MSS Payload Status OCS SPDM Arm 2 OTCM?</dd>
+            <dt>CSASPDM0019 <span class="property-type">0&#x3D;Released|1&#x3D;Captive|2&#x3D;Captured</span></dt>
+            <dd>MSS Payload Status OCS SPDM Arm 2 OTCM</dd>
+            <dt>CSASPDM0020 <span class="property-type">Angle</span></dt>
+            <dd>MSS OCS SPDM Body Roll Joint Position</dd>
+            <dt>CSASPDM0021 <span class="property-type">?</span></dt>
+            <dd>MSS Payload Status OCS SPDM Body?</dd>
+            <dt>CSASPDM0022 <span class="property-type">0&#x3D;Released|1&#x3D;Captive|2&#x3D;Captured</span></dt>
+            <dd>MSS Payload Status OCS SPDM Body</dd>
+            <dt>CSAMBS00001 <span class="property-type">?</span></dt>
+            <dd>MSS OCS Payload Status MBS MCAS?</dd>
+            <dt>CSAMBS00002 <span class="property-type">0&#x3D;Released|1&#x3D;Captured</span></dt>
+            <dd>MSS OCS Payload Status MBS MCAS</dd>
+            <dt>CSAMBA00003 <span class="property-type">?</span></dt>
+            <dd>MSS OCS Payload Status MBS POA?</dd>
+            <dt>CSAMBA00004 <span class="property-type">0&#x3D;Released|1&#x3D;Captive|2&#x3D;Captured</span></dt>
+            <dd>MSS OCS Payload Status MBS POA</dd>            
+        </dl>
+        <h3>EVA</h3>
+        <dl class="message-properties">
+            <dt>AIRLOCK000001 <span class="property-type">{0:f2}</span></dt>
+            <dd>Supplies power through the Umbilical Interface Assembly (UIA) to the spacesuits (EMU 1), Voltage</dd>
+            <dt>AIRLOCK000002 <span class="property-type">{0:f2}</span></dt>
+            <dd>Supplies power through the Umbilical Interface Assembly (UIA) to the spacesuits (EMU 1), Current</dd>
+            <dt>AIRLOCK000003 <span class="property-type">{0:f2}</span></dt>
+            <dd>Supplies power through the Umbilical Interface Assembly (UIA) to the spacesuits (EMU 2), Voltage</dd>
+            <dt>AIRLOCK000004 <span class="property-type">{0:f2}</span></dt>
+            <dd>Supplies power through the Umbilical Interface Assembly (UIA) to the spacesuits (EMU 2), Current</dd>
+            <dt>AIRLOCK000005 <span class="property-type">{0:f2}</span></dt>
+            <dd>In-flight Refill Unit (IRU), Voltage</dd>
+            <dt>AIRLOCK000006 <span class="property-type">{0:f2}</span></dt>
+            <dd>In-flight Refill Unit (IRU), Current</dd>
+            <dt>AIRLOCK000007 <span class="property-type">{0:f2}</span></dt>
+            <dd>Supplies power to the spacesuits (EVA Mobility Unit, EMU 1), Voltage</dd>
+            <dt>AIRLOCK000008 <span class="property-type">{0:f2}</span></dt>
+            <dd>Supplies power to the spacesuits (EVA Mobility Unit, EMU 1), Current</dd>
+            <dt>AIRLOCK000009 <span class="property-type">{0:f2}</span></dt>
+            <dd>Supplies power to the spacesuits (EVA Mobility Unit, EMU 2), Voltage</dd>
+            <dt>AIRLOCK000010 <span class="property-type">{0:f2}</span></dt>
+            <dd>Supplies power to the spacesuits (EVA Mobility Unit, EMU 2), Current</dd>
+            <dt>AIRLOCK000011 <span class="property-type">{0:f2}</span></dt>
+            <dd>Battery Charger Assembly (BCA) 1 Voltage</dd>
+            <dt>AIRLOCK000012 <span class="property-type">{0:f2}</span></dt>
+            <dd>Battery Charger Assembly (BCA) 1 Current</dd>
+            <dt>AIRLOCK000013 <span class="property-type">{0:f2}</span></dt>
+            <dd>Battery Charger Assembly (BCA) 2 Voltage</dd>
+            <dt>AIRLOCK000014 <span class="property-type">{0:f2}</span></dt>
+            <dd>Battery Charger Assembly (BCA) 2 Current</dd>
+            <dt>AIRLOCK000015 <span class="property-type">{0:f2}</span></dt>
+            <dd>Battery Charger Assembly (BCA) 3 Voltage</dd>
+            <dt>AIRLOCK000016 <span class="property-type">{0:f2}</span></dt>
+            <dd>Battery Charger Assembly (BCA) 3 Current</dd>
+            <dt>AIRLOCK000017 <span class="property-type">{0:f2}</span></dt>
+            <dd>Battery Charger Assembly (BCA) 4 Voltage</dd>
+            <dt>AIRLOCK000018 <span class="property-type">{0:f2}</span></dt>
+            <dd>Battery Charger Assembly (BCA) 4 Current</dd>
+            <dt>AIRLOCK000019 <span class="property-type">0&#x3D;Normal|1&#x3D;No Data|2&#x3D;Missing  Data|3&#x3D;Extra Data</span></dt>
+            <dd>Battery Charger Assembly (BCA) 1 Status</dd>
+            <dt>AIRLOCK000020 <span class="property-type">0&#x3D;Normal|1&#x3D;No Data|2&#x3D;Missing  Data|3&#x3D;Extra Data</span></dt>
+            <dd>Battery Charger Assembly (BCA) 2 Status</dd>
+            <dt>AIRLOCK000021 <span class="property-type">0&#x3D;Normal|1&#x3D;No Data|2&#x3D;Missing  Data|3&#x3D;Extra Data</span></dt>
+            <dd>Battery Charger Assembly (BCA) 3 Status</dd>
+            <dt>AIRLOCK000022 <span class="property-type">0&#x3D;Normal|1&#x3D;No Data|2&#x3D;Missing  Data|3&#x3D;Extra Data</span></dt>
+            <dd>Battery Charger Assembly (BCA) 4 Status</dd>
+            <dt>AIRLOCK000023 <span class="property-type">0&#x3D;No History - a charge has not been initiated yet|1&#x3D;Presently charging|2&#x3D;Task completed normally|3&#x3D;Task terminated due to stop switch being toggled|4&#x3D;Task terminated due to an open circuit error|5&#x3D;Task terminated due to Wrong Batt or Hi-imp|6&#x3D;Task terminated due to an over-temperature error|7&#x3D;Amp-hour capacity test result OK|8&#x3D;Amp-hour capacity test error|9&#x3D;Task terminated due to low charge slope error|10&#x3D;Task terminated due to power error|11&#x3D;Task terminated due to reverse-polarity error|12&#x3D;Task terminated due to a short-circuit error|13&#x3D;Task terminated due to a time-out error|14&#x3D;Task terminated due to an external-temperature error|15&#x3D;Discharge|16&#x3D;Wait on Discharge|17&#x3D;Wait on Charge</span></dt>
+            <dd>Battery Charger Assembly (BCA) 1 Channel 1 Status</dd>
+            <dt>AIRLOCK000024 <span class="property-type">0&#x3D;No History - a charge has not been initiated yet|1&#x3D;Presently charging|2&#x3D;Task completed normally|3&#x3D;Task terminated due to stop switch being toggled|4&#x3D;Task terminated due to an open circuit error|5&#x3D;Task terminated due to Wrong Batt or Hi-imp|6&#x3D;Task terminated due to an over-temperature error|7&#x3D;Amp-hour capacity test result OK|8&#x3D;Amp-hour capacity test error|9&#x3D;Task terminated due to low charge slope error|10&#x3D;Task terminated due to power error|11&#x3D;Task terminated due to reverse-polarity error|12&#x3D;Task terminated due to a short-circuit error|13&#x3D;Task terminated due to a time-out error|14&#x3D;Task terminated due to an external-temperature error|15&#x3D;Discharge|16&#x3D;Wait on Discharge|17&#x3D;Wait on Charge</span></dt>
+            <dd>Battery Charger Assembly (BCA) 1 Channel 2 Status</dd>
+            <dt>AIRLOCK000025 <span class="property-type">0&#x3D;No History - a charge has not been initiated yet|1&#x3D;Presently charging|2&#x3D;Task completed normally|3&#x3D;Task terminated due to stop switch being toggled|4&#x3D;Task terminated due to an open circuit error|5&#x3D;Task terminated due to Wrong Batt or Hi-imp|6&#x3D;Task terminated due to an over-temperature error|7&#x3D;Amp-hour capacity test result OK|8&#x3D;Amp-hour capacity test error|9&#x3D;Task terminated due to low charge slope error|10&#x3D;Task terminated due to power error|11&#x3D;Task terminated due to reverse-polarity error|12&#x3D;Task terminated due to a short-circuit error|13&#x3D;Task terminated due to a time-out error|14&#x3D;Task terminated due to an external-temperature error|15&#x3D;Discharge|16&#x3D;Wait on Discharge|17&#x3D;Wait on Charge</span></dt>
+            <dd>Battery Charger Assembly (BCA) 1 Channel 3 Status</dd>
+            <dt>AIRLOCK000026 <span class="property-type">0&#x3D;No History - a charge has not been initiated yet|1&#x3D;Presently charging|2&#x3D;Task completed normally|3&#x3D;Task terminated due to stop switch being toggled|4&#x3D;Task terminated due to an open circuit error|5&#x3D;Task terminated due to Wrong Batt or Hi-imp|6&#x3D;Task terminated due to an over-temperature error|7&#x3D;Amp-hour capacity test result OK|8&#x3D;Amp-hour capacity test error|9&#x3D;Task terminated due to low charge slope error|10&#x3D;Task terminated due to power error|11&#x3D;Task terminated due to reverse-polarity error|12&#x3D;Task terminated due to a short-circuit error|13&#x3D;Task terminated due to a time-out error|14&#x3D;Task terminated due to an external-temperature error|15&#x3D;Discharge|16&#x3D;Wait on Discharge|17&#x3D;Wait on Charge</span></dt>
+            <dd>Battery Charger Assembly (BCA) 1 Channel 4 Status</dd>
+            <dt>AIRLOCK000027 <span class="property-type">0&#x3D;No History - a charge has not been initiated yet|1&#x3D;Presently charging|2&#x3D;Task completed normally|3&#x3D;Task terminated due to stop switch being toggled|4&#x3D;Task terminated due to an open circuit error|5&#x3D;Task terminated due to Wrong Batt or Hi-imp|6&#x3D;Task terminated due to an over-temperature error|7&#x3D;Amp-hour capacity test result OK|8&#x3D;Amp-hour capacity test error|9&#x3D;Task terminated due to low charge slope error|10&#x3D;Task terminated due to power error|11&#x3D;Task terminated due to reverse-polarity error|12&#x3D;Task terminated due to a short-circuit error|13&#x3D;Task terminated due to a time-out error|14&#x3D;Task terminated due to an external-temperature error|15&#x3D;Discharge|16&#x3D;Wait on Discharge|17&#x3D;Wait on Charge</span></dt>
+            <dd>Battery Charger Assembly (BCA) 1 Channel 5 Status</dd>
+            <dt>AIRLOCK000028 <span class="property-type">0&#x3D;No History - a charge has not been initiated yet|1&#x3D;Presently charging|2&#x3D;Task completed normally|3&#x3D;Task terminated due to stop switch being toggled|4&#x3D;Task terminated due to an open circuit error|5&#x3D;Task terminated due to Wrong Batt or Hi-imp|6&#x3D;Task terminated due to an over-temperature error|7&#x3D;Amp-hour capacity test result OK|8&#x3D;Amp-hour capacity test error|9&#x3D;Task terminated due to low charge slope error|10&#x3D;Task terminated due to power error|11&#x3D;Task terminated due to reverse-polarity error|12&#x3D;Task terminated due to a short-circuit error|13&#x3D;Task terminated due to a time-out error|14&#x3D;Task terminated due to an external-temperature error|15&#x3D;Discharge|16&#x3D;Wait on Discharge|17&#x3D;Wait on Charge</span></dt>
+            <dd>Battery Charger Assembly (BCA) 1 Channel 6 Status</dd>
+            <dt>AIRLOCK000029 <span class="property-type">0&#x3D;No History - a charge has not been initiated yet|1&#x3D;Presently charging|2&#x3D;Task completed normally|3&#x3D;Task terminated due to stop switch being toggled|4&#x3D;Task terminated due to an open circuit error|5&#x3D;Task terminated due to Wrong Batt or Hi-imp|6&#x3D;Task terminated due to an over-temperature error|7&#x3D;Amp-hour capacity test result OK|8&#x3D;Amp-hour capacity test error|9&#x3D;Task terminated due to low charge slope error|10&#x3D;Task terminated due to power error|11&#x3D;Task terminated due to reverse-polarity error|12&#x3D;Task terminated due to a short-circuit error|13&#x3D;Task terminated due to a time-out error|14&#x3D;Task terminated due to an external-temperature error|15&#x3D;Discharge|16&#x3D;Wait on Discharge|17&#x3D;Wait on Charge</span></dt>
+            <dd>Battery Charger Assembly (BCA) 2 Channel 1 Status</dd>
+            <dt>AIRLOCK000030 <span class="property-type">0&#x3D;No History - a charge has not been initiated yet|1&#x3D;Presently charging|2&#x3D;Task completed normally|3&#x3D;Task terminated due to stop switch being toggled|4&#x3D;Task terminated due to an open circuit error|5&#x3D;Task terminated due to Wrong Batt or Hi-imp|6&#x3D;Task terminated due to an over-temperature error|7&#x3D;Amp-hour capacity test result OK|8&#x3D;Amp-hour capacity test error|9&#x3D;Task terminated due to low charge slope error|10&#x3D;Task terminated due to power error|11&#x3D;Task terminated due to reverse-polarity error|12&#x3D;Task terminated due to a short-circuit error|13&#x3D;Task terminated due to a time-out error|14&#x3D;Task terminated due to an external-temperature error|15&#x3D;Discharge|16&#x3D;Wait on Discharge|17&#x3D;Wait on Charge</span></dt>
+            <dd>Battery Charger Assembly (BCA) 2 Channel 2 Status</dd>
+            <dt>AIRLOCK000031 <span class="property-type">0&#x3D;No History - a charge has not been initiated yet|1&#x3D;Presently charging|2&#x3D;Task completed normally|3&#x3D;Task terminated due to stop switch being toggled|4&#x3D;Task terminated due to an open circuit error|5&#x3D;Task terminated due to Wrong Batt or Hi-imp|6&#x3D;Task terminated due to an over-temperature error|7&#x3D;Amp-hour capacity test result OK|8&#x3D;Amp-hour capacity test error|9&#x3D;Task terminated due to low charge slope error|10&#x3D;Task terminated due to power error|11&#x3D;Task terminated due to reverse-polarity error|12&#x3D;Task terminated due to a short-circuit error|13&#x3D;Task terminated due to a time-out error|14&#x3D;Task terminated due to an external-temperature error|15&#x3D;Discharge|16&#x3D;Wait on Discharge|17&#x3D;Wait on Charge</span></dt>
+            <dd>Battery Charger Assembly (BCA) 2 Channel 3 Status</dd>
+            <dt>AIRLOCK000032 <span class="property-type">0&#x3D;No History - a charge has not been initiated yet|1&#x3D;Presently charging|2&#x3D;Task completed normally|3&#x3D;Task terminated due to stop switch being toggled|4&#x3D;Task terminated due to an open circuit error|5&#x3D;Task terminated due to Wrong Batt or Hi-imp|6&#x3D;Task terminated due to an over-temperature error|7&#x3D;Amp-hour capacity test result OK|8&#x3D;Amp-hour capacity test error|9&#x3D;Task terminated due to low charge slope error|10&#x3D;Task terminated due to power error|11&#x3D;Task terminated due to reverse-polarity error|12&#x3D;Task terminated due to a short-circuit error|13&#x3D;Task terminated due to a time-out error|14&#x3D;Task terminated due to an external-temperature error|15&#x3D;Discharge|16&#x3D;Wait on Discharge|17&#x3D;Wait on Charge</span></dt>
+            <dd>Battery Charger Assembly (BCA) 2 Channel 4 Status</dd>
+            <dt>AIRLOCK000033 <span class="property-type">0&#x3D;No History - a charge has not been initiated yet|1&#x3D;Presently charging|2&#x3D;Task completed normally|3&#x3D;Task terminated due to stop switch being toggled|4&#x3D;Task terminated due to an open circuit error|5&#x3D;Task terminated due to Wrong Batt or Hi-imp|6&#x3D;Task terminated due to an over-temperature error|7&#x3D;Amp-hour capacity test result OK|8&#x3D;Amp-hour capacity test error|9&#x3D;Task terminated due to low charge slope error|10&#x3D;Task terminated due to power error|11&#x3D;Task terminated due to reverse-polarity error|12&#x3D;Task terminated due to a short-circuit error|13&#x3D;Task terminated due to a time-out error|14&#x3D;Task terminated due to an external-temperature error|15&#x3D;Discharge|16&#x3D;Wait on Discharge|17&#x3D;Wait on Charge</span></dt>
+            <dd>Battery Charger Assembly (BCA) 2 Channel 5 Status</dd>
+            <dt>AIRLOCK000034 <span class="property-type">0&#x3D;No History - a charge has not been initiated yet|1&#x3D;Presently charging|2&#x3D;Task completed normally|3&#x3D;Task terminated due to stop switch being toggled|4&#x3D;Task terminated due to an open circuit error|5&#x3D;Task terminated due to Wrong Batt or Hi-imp|6&#x3D;Task terminated due to an over-temperature error|7&#x3D;Amp-hour capacity test result OK|8&#x3D;Amp-hour capacity test error|9&#x3D;Task terminated due to low charge slope error|10&#x3D;Task terminated due to power error|11&#x3D;Task terminated due to reverse-polarity error|12&#x3D;Task terminated due to a short-circuit error|13&#x3D;Task terminated due to a time-out error|14&#x3D;Task terminated due to an external-temperature error|15&#x3D;Discharge|16&#x3D;Wait on Discharge|17&#x3D;Wait on Charge</span></dt>
+            <dd>Battery Charger Assembly (BCA) 2 Channel 6 Status</dd>
+            <dt>AIRLOCK000035 <span class="property-type">0&#x3D;No History - a charge has not been initiated yet|1&#x3D;Presently charging|2&#x3D;Task completed normally|3&#x3D;Task terminated due to stop switch being toggled|4&#x3D;Task terminated due to an open circuit error|5&#x3D;Task terminated due to Wrong Batt or Hi-imp|6&#x3D;Task terminated due to an over-temperature error|7&#x3D;Amp-hour capacity test result OK|8&#x3D;Amp-hour capacity test error|9&#x3D;Task terminated due to low charge slope error|10&#x3D;Task terminated due to power error|11&#x3D;Task terminated due to reverse-polarity error|12&#x3D;Task terminated due to a short-circuit error|13&#x3D;Task terminated due to a time-out error|14&#x3D;Task terminated due to an external-temperature error|15&#x3D;Discharge|16&#x3D;Wait on Discharge|17&#x3D;Wait on Charge</span></dt>
+            <dd>Battery Charger Assembly (BCA) 3 Channel 1 Status</dd>
+            <dt>AIRLOCK000036 <span class="property-type">0&#x3D;No History - a charge has not been initiated yet|1&#x3D;Presently charging|2&#x3D;Task completed normally|3&#x3D;Task terminated due to stop switch being toggled|4&#x3D;Task terminated due to an open circuit error|5&#x3D;Task terminated due to Wrong Batt or Hi-imp|6&#x3D;Task terminated due to an over-temperature error|7&#x3D;Amp-hour capacity test result OK|8&#x3D;Amp-hour capacity test error|9&#x3D;Task terminated due to low charge slope error|10&#x3D;Task terminated due to power error|11&#x3D;Task terminated due to reverse-polarity error|12&#x3D;Task terminated due to a short-circuit error|13&#x3D;Task terminated due to a time-out error|14&#x3D;Task terminated due to an external-temperature error|15&#x3D;Discharge|16&#x3D;Wait on Discharge|17&#x3D;Wait on Charge</span></dt>
+            <dd>Battery Charger Assembly (BCA) 3 Channel 2 Status</dd>
+            <dt>AIRLOCK000037 <span class="property-type">0&#x3D;No History - a charge has not been initiated yet|1&#x3D;Presently charging|2&#x3D;Task completed normally|3&#x3D;Task terminated due to stop switch being toggled|4&#x3D;Task terminated due to an open circuit error|5&#x3D;Task terminated due to Wrong Batt or Hi-imp|6&#x3D;Task terminated due to an over-temperature error|7&#x3D;Amp-hour capacity test result OK|8&#x3D;Amp-hour capacity test error|9&#x3D;Task terminated due to low charge slope error|10&#x3D;Task terminated due to power error|11&#x3D;Task terminated due to reverse-polarity error|12&#x3D;Task terminated due to a short-circuit error|13&#x3D;Task terminated due to a time-out error|14&#x3D;Task terminated due to an external-temperature error|15&#x3D;Discharge|16&#x3D;Wait on Discharge|17&#x3D;Wait on Charge</span></dt>
+            <dd>Battery Charger Assembly (BCA) 3 Channel 3 Status</dd>
+            <dt>AIRLOCK000038 <span class="property-type">0&#x3D;No History - a charge has not been initiated yet|1&#x3D;Presently charging|2&#x3D;Task completed normally|3&#x3D;Task terminated due to stop switch being toggled|4&#x3D;Task terminated due to an open circuit error|5&#x3D;Task terminated due to Wrong Batt or Hi-imp|6&#x3D;Task terminated due to an over-temperature error|7&#x3D;Amp-hour capacity test result OK|8&#x3D;Amp-hour capacity test error|9&#x3D;Task terminated due to low charge slope error|10&#x3D;Task terminated due to power error|11&#x3D;Task terminated due to reverse-polarity error|12&#x3D;Task terminated due to a short-circuit error|13&#x3D;Task terminated due to a time-out error|14&#x3D;Task terminated due to an external-temperature error|15&#x3D;Discharge|16&#x3D;Wait on Discharge|17&#x3D;Wait on Charge</span></dt>
+            <dd>Battery Charger Assembly (BCA) 3 Channel 4 Status</dd>
+            <dt>AIRLOCK000039 <span class="property-type">0&#x3D;No History - a charge has not been initiated yet|1&#x3D;Presently charging|2&#x3D;Task completed normally|3&#x3D;Task terminated due to stop switch being toggled|4&#x3D;Task terminated due to an open circuit error|5&#x3D;Task terminated due to Wrong Batt or Hi-imp|6&#x3D;Task terminated due to an over-temperature error|7&#x3D;Amp-hour capacity test result OK|8&#x3D;Amp-hour capacity test error|9&#x3D;Task terminated due to low charge slope error|10&#x3D;Task terminated due to power error|11&#x3D;Task terminated due to reverse-polarity error|12&#x3D;Task terminated due to a short-circuit error|13&#x3D;Task terminated due to a time-out error|14&#x3D;Task terminated due to an external-temperature error|15&#x3D;Discharge|16&#x3D;Wait on Discharge|17&#x3D;Wait on Charge</span></dt>
+            <dd>Battery Charger Assembly (BCA) 3 Channel 5 Status</dd>
+            <dt>AIRLOCK000040 <span class="property-type">0&#x3D;No History - a charge has not been initiated yet|1&#x3D;Presently charging|2&#x3D;Task completed normally|3&#x3D;Task terminated due to stop switch being toggled|4&#x3D;Task terminated due to an open circuit error|5&#x3D;Task terminated due to Wrong Batt or Hi-imp|6&#x3D;Task terminated due to an over-temperature error|7&#x3D;Amp-hour capacity test result OK|8&#x3D;Amp-hour capacity test error|9&#x3D;Task terminated due to low charge slope error|10&#x3D;Task terminated due to power error|11&#x3D;Task terminated due to reverse-polarity error|12&#x3D;Task terminated due to a short-circuit error|13&#x3D;Task terminated due to a time-out error|14&#x3D;Task terminated due to an external-temperature error|15&#x3D;Discharge|16&#x3D;Wait on Discharge|17&#x3D;Wait on Charge</span></dt>
+            <dd>Battery Charger Assembly (BCA) 3 Channel 6 Status</dd>
+            <dt>AIRLOCK000041 <span class="property-type">0&#x3D;No History - a charge has not been initiated yet|1&#x3D;Presently charging|2&#x3D;Task completed normally|3&#x3D;Task terminated due to stop switch being toggled|4&#x3D;Task terminated due to an open circuit error|5&#x3D;Task terminated due to Wrong Batt or Hi-imp|6&#x3D;Task terminated due to an over-temperature error|7&#x3D;Amp-hour capacity test result OK|8&#x3D;Amp-hour capacity test error|9&#x3D;Task terminated due to low charge slope error|10&#x3D;Task terminated due to power error|11&#x3D;Task terminated due to reverse-polarity error|12&#x3D;Task terminated due to a short-circuit error|13&#x3D;Task terminated due to a time-out error|14&#x3D;Task terminated due to an external-temperature error|15&#x3D;Discharge|16&#x3D;Wait on Discharge|17&#x3D;Wait on Charge</span></dt>
+            <dd>Battery Charger Assembly (BCA) 4 Channel 1 Status</dd>
+            <dt>AIRLOCK000042 <span class="property-type">0&#x3D;No History - a charge has not been initiated yet|1&#x3D;Presently charging|2&#x3D;Task completed normally|3&#x3D;Task terminated due to stop switch being toggled|4&#x3D;Task terminated due to an open circuit error|5&#x3D;Task terminated due to Wrong Batt or Hi-imp|6&#x3D;Task terminated due to an over-temperature error|7&#x3D;Amp-hour capacity test result OK|8&#x3D;Amp-hour capacity test error|9&#x3D;Task terminated due to low charge slope error|10&#x3D;Task terminated due to power error|11&#x3D;Task terminated due to reverse-polarity error|12&#x3D;Task terminated due to a short-circuit error|13&#x3D;Task terminated due to a time-out error|14&#x3D;Task terminated due to an external-temperature error|15&#x3D;Discharge|16&#x3D;Wait on Discharge|17&#x3D;Wait on Charge</span></dt>
+            <dd>Battery Charger Assembly (BCA) 4 Channel 2 Status</dd>
+            <dt>AIRLOCK000043 <span class="property-type">0&#x3D;No History - a charge has not been initiated yet|1&#x3D;Presently charging|2&#x3D;Task completed normally|3&#x3D;Task terminated due to stop switch being toggled|4&#x3D;Task terminated due to an open circuit error|5&#x3D;Task terminated due to Wrong Batt or Hi-imp|6&#x3D;Task terminated due to an over-temperature error|7&#x3D;Amp-hour capacity test result OK|8&#x3D;Amp-hour capacity test error|9&#x3D;Task terminated due to low charge slope error|10&#x3D;Task terminated due to power error|11&#x3D;Task terminated due to reverse-polarity error|12&#x3D;Task terminated due to a short-circuit error|13&#x3D;Task terminated due to a time-out error|14&#x3D;Task terminated due to an external-temperature error|15&#x3D;Discharge|16&#x3D;Wait on Discharge|17&#x3D;Wait on Charge</span></dt>
+            <dd>Battery Charger Assembly (BCA) 4 Channel 3 Status</dd>
+            <dt>AIRLOCK000044 <span class="property-type">0&#x3D;No History - a charge has not been initiated yet|1&#x3D;Presently charging|2&#x3D;Task completed normally|3&#x3D;Task terminated due to stop switch being toggled|4&#x3D;Task terminated due to an open circuit error|5&#x3D;Task terminated due to Wrong Batt or Hi-imp|6&#x3D;Task terminated due to an over-temperature error|7&#x3D;Amp-hour capacity test result OK|8&#x3D;Amp-hour capacity test error|9&#x3D;Task terminated due to low charge slope error|10&#x3D;Task terminated due to power error|11&#x3D;Task terminated due to reverse-polarity error|12&#x3D;Task terminated due to a short-circuit error|13&#x3D;Task terminated due to a time-out error|14&#x3D;Task terminated due to an external-temperature error|15&#x3D;Discharge|16&#x3D;Wait on Discharge|17&#x3D;Wait on Charge</span></dt>
+            <dd>Battery Charger Assembly (BCA) 4 Channel 4 Status</dd>
+            <dt>AIRLOCK000045 <span class="property-type">0&#x3D;No History - a charge has not been initiated yet|1&#x3D;Presently charging|2&#x3D;Task completed normally|3&#x3D;Task terminated due to stop switch being toggled|4&#x3D;Task terminated due to an open circuit error|5&#x3D;Task terminated due to Wrong Batt or Hi-imp|6&#x3D;Task terminated due to an over-temperature error|7&#x3D;Amp-hour capacity test result OK|8&#x3D;Amp-hour capacity test error|9&#x3D;Task terminated due to low charge slope error|10&#x3D;Task terminated due to power error|11&#x3D;Task terminated due to reverse-polarity error|12&#x3D;Task terminated due to a short-circuit error|13&#x3D;Task terminated due to a time-out error|14&#x3D;Task terminated due to an external-temperature error|15&#x3D;Discharge|16&#x3D;Wait on Discharge|17&#x3D;Wait on Charge</span></dt>
+            <dd>Battery Charger Assembly (BCA) 4 Channel 5 Status</dd>
+            <dt>AIRLOCK000046 <span class="property-type">0&#x3D;No History - a charge has not been initiated yet|1&#x3D;Presently charging|2&#x3D;Task completed normally|3&#x3D;Task terminated due to stop switch being toggled|4&#x3D;Task terminated due to an open circuit error|5&#x3D;Task terminated due to Wrong Batt or Hi-imp|6&#x3D;Task terminated due to an over-temperature error|7&#x3D;Amp-hour capacity test result OK|8&#x3D;Amp-hour capacity test error|9&#x3D;Task terminated due to low charge slope error|10&#x3D;Task terminated due to power error|11&#x3D;Task terminated due to reverse-polarity error|12&#x3D;Task terminated due to a short-circuit error|13&#x3D;Task terminated due to a time-out error|14&#x3D;Task terminated due to an external-temperature error|15&#x3D;Discharge|16&#x3D;Wait on Discharge|17&#x3D;Wait on Charge</span></dt>
+            <dd>Battery Charger Assembly (BCA) 4 Channel 6 Status</dd>
+            <dt>AIRLOCK000047 <span class="property-type">0&#x3D;Off-Ok|1&#x3D;Not-Off Ok|3&#x3D;Not-Off Failed</span></dt>
+            <dd>Pumps atmosphere from Airlock into Node one during depress, voltage status.</dd>
+            <dt>AIRLOCK000048 <span class="property-type">0&#x3D;PUMP OFF CMD|1&#x3D;PUMP ON CMD</span></dt>
+            <dd>Pumps atmosphere from Airlock into Node one during depress, switch status.</dd>
+        </dl>
+        <h3>ETHOS</h3>
+        <dl class="message-properties">
+            <dt>AIRLOCK000049 <span class="property-type">{0:f2}</span></dt>
+            <dd>Crewlock Pressure</dd>
+            <dt>AIRLOCK000050 <span class="property-type">0&#x3D;CLOSED|1&#x3D;OPEN|2&#x3D;IN-TRANSIT|3&#x3D;FAILED</span></dt>
+            <dd>Hi P O2 Supply valve position</dd>
+            <dt>AIRLOCK000051 <span class="property-type">0&#x3D;CLOSED|1&#x3D;OPEN|2&#x3D;IN-TRANSIT|3&#x3D;FAILED</span></dt>
+            <dd>Lo P O2 Supply Valve position</dd>
+            <dt>AIRLOCK000052 <span class="property-type">0&#x3D;CLOSED|1&#x3D;OPEN|2&#x3D;IN-TRANSIT|3&#x3D;FAILED</span></dt>
+            <dd>N2 Supply Valve position</dd>
+            <dt>AIRLOCK000053 <span class="property-type">0&#x3D;RESET|1&#x3D;DRAIN|2&#x3D;DRYOUT|3&#x3D;EIB OFF|4&#x3D;OFF|5&#x3D;ON|6&#x3D;STARTUP|7&#x3D;TEST</span></dt>
+            <dd>Airlock Air Conditioner State</dd>
+            <dt>AIRLOCK000054 <span class="property-type">{0:f2}</span></dt>
+            <dd>Airlock Pressure</dd>
+            <dt>AIRLOCK000055 <span class="property-type">{0:f1}</span></dt>
+            <dd>Airlock Hi P O2 Tank Pressure</dd>
+            <dt>AIRLOCK000056 <span class="property-type">{0:f1}</span></dt>
+            <dd>Airlock Lo P O2 Tank Pressure</dd>
+            <dt>AIRLOCK000057 <span class="property-type">{0:f1}</span></dt>
+            <dd>Airlock N2 Tank Pressure</dd>
+            <dt>NODE2000001 <span class="property-type">{0:f1}</span></dt>
+            <dd>Coolant water quantity (Node 2), MT</dd>
+            <dt>NODE2000002 <span class="property-type">{0:f1}</span></dt>
+            <dd>Coolant water quantity (Node 2), LT</dd>
+            <dt>NODE2000003 <span class="property-type">0&#x3D;RESET|1&#x3D;DRAIN|2&#x3D;DRYOUT|3&#x3D;EIB OFF|4&#x3D;OFF|5&#x3D;ON|6&#x3D;STARTUP|7&#x3D;TEST</span></dt>
+            <dd>Node 2 Air Conditioner State</dd>
+            <dt>NODE2000006 <span class="property-type">{0:f1}</span></dt>
+            <dd>Air Cooling Fluid Temp (Node 2)</dd>
+            <dt>NODE2000007 <span class="property-type">{0:f1}</span></dt>
+            <dd>Avionics Cooling Fluid Temp (Node 2)</dd>
+            <dt>NODE3000001 <span class="property-type">{0:f2}</span></dt>
+            <dd>Node 3 ppO2</dd>
+            <dt>NODE3000002 <span class="property-type">{0:f2}</span></dt>
+            <dd>Node 3 ppN2</dd>
+            <dt>NODE3000003 <span class="property-type">{0:f2}</span></dt>
+            <dd>Node 3 ppCO2</dd>
+            <dt>NODE3000004 <span class="property-type">2&#x3D;STOP|4&#x3D;SHUTDOWN|8&#x3D;MAINTENANCE|16&#x3D;NORMAL|32&#x3D;STANDBY|64&#x3D;IDLE|128&#x3D;SYSTEM INITIALIZED</span></dt>
+            <dd>Urine Processor State</dd>
+            <dt>NODE3000005 <span class="property-type">{0:f1}</span></dt>
+            <dd>Urine Tank Qty</dd>
+            <dt>NODE3000006 <span class="property-type">1&#x3D;STOP|2&#x3D;SHUTDOWN|3&#x3D;STANDBY|4&#x3D;PROCESS|5&#x3D;HOT SERVICE|6&#x3D;FLUSH|7&#x3D;WARM SHUTDOWN</span></dt>
+            <dd>Water Processor State</dd>
+            <dt>NODE3000007 <span class="property-type">0&#x3D;NONE|1&#x3D;VENT|2&#x3D;HEATUP|3&#x3D;PURGE|4&#x3D;FLOW|5&#x3D;TEST|6&#x3D;TEST_SV_1|7&#x3D;TEST_SV_2|8&#x3D;SERVICE</span></dt>
+            <dd>Water Processor Step</dd>
+            <dt>NODE3000008 <span class="property-type">{0:f1}</span></dt>
+            <dd>Waste Water Tank Qty</dd>
+            <dt>NODE3000009 <span class="property-type">{0:f1}</span></dt>
+            <dd>Clean Water Tank Qty</dd>
+            <dt>NODE3000010 <span class="property-type">1&#x3D;PROCESS|2&#x3D;STANDBY|3&#x3D;SHUTDOWN|4&#x3D;STOP|5&#x3D;VENT_DOME|6&#x3D;INERT_DOME|7&#x3D;FAST_SHUTDOWN|8&#x3D;N2_PURGE_SHUTDOWN</span></dt>
+            <dd>Oxygen Generator State</dd>
+            <dt>NODE3000011 <span class="property-type">{0:f2}</span></dt>
+            <dd>O2 Production rate</dd>
+            <dt>NODE3000012 <span class="property-type">{0:f1}</span></dt>
+            <dd>Avionics Cooling Fluid Temp (Node 3)</dd>
+            <dt>NODE3000013 <span class="property-type">{0:f2}</span></dt>
+            <dd>Air Cooling Fluid Temp (Node 3)</dd>
+            <dt>NODE3000017 <span class="property-type">{0:f1}</span></dt>
+            <dd>Coolant water quantity (Node 3)</dd>
+            <dt>NODE3000018 <span class="property-type">0&#x3D;RESET|1&#x3D;DRAIN|2&#x3D;DRYOUT|3&#x3D;EIB OFF|4&#x3D;OFF|5&#x3D;ON|6&#x3D;STARTUP|7&#x3D;TEST</span></dt>
+            <dd>Node 3 Air Conditioner State</dd>
+            <dt>NODE3000019 <span class="property-type">{0:f1}</span></dt>
+            <dd>Coolant water quantity (Node 3)</dd>
+            <dt>USLAB000053 <span class="property-type">{0:f2}</span></dt>
+            <dd>Lab ppO2</dd>
+            <dt>USLAB000054 <span class="property-type">{0:f2}</span></dt>
+            <dd>Lab ppN2</dd>
+            <dt>USLAB000055 <span class="property-type">{0:f2}</span></dt>
+            <dd>Lab ppCO2</dd>
+            <dt>USLAB000056 <span class="property-type">{0:f1}</span></dt>
+            <dd>Coolant water quantity, LT (Lab)</dd>
+            <dt>USLAB000057 <span class="property-type">{0:f1}</span></dt>
+            <dd>Coolant water quantity, MT (Lab)</dd>
+            <dt>USLAB000058 <span class="property-type">{0:f2}</span></dt>
+            <dd>Cabin pressure</dd>
+            <dt>USLAB000059 <span class="property-type">{0:f1}</span></dt>
+            <dd>Cabin temperature</dd>
+            <dt>USLAB000060 <span class="property-type">{0:f1}</span></dt>
+            <dd>Avionics Cooling Fluid Temp (Lab)</dd>
+            <dt>USLAB000061 <span class="property-type">{0:f2}</span></dt>
+            <dd>Air Cooling Fluid Temp (Lab)</dd>
+            <dt>USLAB000062 <span class="property-type">0&#x3D;FAIL|1&#x3D;OPEN|2&#x3D;CLSD|3&#x3D;TRNS</span></dt>
+            <dd>Vacuum Resource System Valve Position</dd>
+            <dt>USLAB000063 <span class="property-type">0&#x3D;FAIL|1&#x3D;OPEN|2&#x3D;CLSD|3&#x3D;TRNS</span></dt>
+            <dd>Vacuum Exhaust System Valve Position</dd>
+            <dt>USLAB000064 <span class="property-type">0&#x3D;RESET|1&#x3D;DRAIN|2&#x3D;DRYOUT|3&#x3D;EIB OFF|4&#x3D;OFF|5&#x3D;ON|6&#x3D;STARTUP|7&#x3D;TEST</span></dt>
+            <dd>Lab Port Air Conditioner State</dd>
+            <dt>USLAB000065 <span class="property-type">0&#x3D;RESET|1&#x3D;DRAIN|2&#x3D;DRYOUT|3&#x3D;EIB OFF|4&#x3D;OFF|5&#x3D;ON|6&#x3D;STARTUP|7&#x3D;TEST</span></dt>
+            <dd>Lab Starboard Air Conditioner State</dd>
+        </dl>
+        <h3>ODIN</h3>
+        <dl class="message-properties">
+            <dt>USLAB000082 <span class="property-type">{0:d0}</span></dt>
+            <dd>Standard Command Counter - Count of standard commands received by the ISS Command and Control Computer</dd>
+            <dt>USLAB000083 <span class="property-type">{0:d0}</span></dt>
+            <dd>Data Load Command Counter - Count of data load commands received by the ISS Command and Control Computer</dd>
+            <dt>USLAB000084 <span class="property-type">%sT</span></dt>
+            <dd>ISS Command and Control Multiplexer&#x2F;Demultiplexer Onboard Time (course)</dd>
+            <dt>USLAB000085 <span class="property-type">{0:f7}</span></dt>
+            <dd>ISS Command and Control Multiplexer&#x2F;Demultiplexer Onboard Time (fine)</dd>
+            <dt>USLAB000087 <span class="property-type">{0:d0}</span></dt>
+            <dd># Laptops active and connected to the Primary Command and Control (C&amp;C) Multiplexer&#x2F;Demultiplexer (MDM)</dd>            
+        </dl>
+        <h3>SPARTAN</h3>
+        <dl class="message-properties">
+            <dt>P1000001 <span class="property-type">{0:f1}</span></dt>
+            <dd>Loop B Pump Flowrate (kg&#x2F;hr)</dd>
+            <dt>P1000002 <span class="property-type">{0:f1}</span></dt>
+            <dd>Loop B PM Out Press (kPa)</dd>
+            <dt>P1000003 <span class="property-type">{0:f1}</span></dt>
+            <dd>Loop B PM Out Temp (deg C)</dd>
+            <dt>P4000001 <span class="property-type">{0:f1}</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 2A - Drive Voltage</dd>
+            <dt>P4000002 <span class="property-type">{0:f2}</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 2A - Drive Current</dd>
+            <dt>P4000004 <span class="property-type">{0:f1}</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 4A - Drive Voltage</dd>
+            <dt>P4000005 <span class="property-type">{0:f2}</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 4A - Drive Current</dd>
+            <dt>P4000007 <span class="property-type">{0:f1}</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 2A - Beta Gimble Assembly (BGA) Position (degrees)</dd>
+            <dt>P4000008 <span class="property-type">{0:f1}</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 4A - Beta Gimble Assembly (BGA) Position (degrees)</dd>
+            <dt>P6000001 <span class="property-type">{0:f1}</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 4B - Drive Voltage</dd>
+            <dt>P6000002 <span class="property-type">{0:f2}</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 4B - Drive Current</dd>
+            <dt>P6000004 <span class="property-type">{0:f1}</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 2B - Drive Voltage</dd>
+            <dt>P6000005 <span class="property-type">{0:f2}</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 2B - Drive Current</dd>
+            <dt>P6000007 <span class="property-type">{0:f1}</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 4B - Beta Gimble Assembly (BGA) Position (degrees)</dd>
+            <dt>P6000008 <span class="property-type">{0:f1}</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 2B - Beta Gimble Assembly (BGA) Position (degrees)</dd>
+            <dt>S1000001 <span class="property-type">{0:f1}</span></dt>
+            <dd>Loop A Pump Flowrate (kg&#x2F;hr)</dd>
+            <dt>S1000002 <span class="property-type">{0:f1}</span></dt>
+            <dd>Loop A PM Out Press (kPa)</dd>
+            <dt>S1000003 <span class="property-type">{0:f1}</span></dt>
+            <dd>Loop A PM Out Temp (deg C)</dd>
+            <dt>S4000001 <span class="property-type">{0:f1}</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 1A - Drive Voltage</dd>
+            <dt>S4000002 <span class="property-type">{0:f2}</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 1A - Drive Current</dd>
+            <dt>S4000004 <span class="property-type">{0:f1}</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 3B - Drive Voltage</dd>
+            <dt>S4000005 <span class="property-type">{0:f2}</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 3B - Drive Current</dd>
+            <dt>S4000007 <span class="property-type">{0:f1}</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 1A - Beta Gimble Assembly (BGA) Position (degrees)</dd>
+            <dt>S4000008 <span class="property-type">{0:f1}</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 3A - Beta Gimble Assembly (BGA) Position (degrees)</dd>
+            <dt>S6000001 <span class="property-type">{0:f1}</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 3B - Drive Voltage</dd>
+            <dt>S6000002 <span class="property-type">{0:f2}</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 3B - Drive Current</dd>
+            <dt>S6000004 <span class="property-type">{0:f1}</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 1B - Drive Voltage</dd>
+            <dt>S6000005 <span class="property-type">{0:f2}</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 1B - Drive Current</dd>
+            <dt>S6000007 <span class="property-type">{0:f1}</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 3B - Beta Gimble Assembly (BGA) Position (degrees)</dd>
+            <dt>S6000008 <span class="property-type">{0:f1}</span></dt>
+            <dd>Photovolatic Control Unit (PVCU) - Solar Array - 1B - Beta Gimble Assembly (BGA) Position (degrees)</dd>
+        </dl>
+        <h3>VVO</h3>
+        <dl class="message-properties">
+            <dt>RUSSEG000001 <span class="property-type">1&#x3D;Crew Rescue|2&#x3D;Survival|3&#x3D;Reboost|4&#x3D;Proximity Operations|5&#x3D;EVA|6&#x3D;Microgravity|7&#x3D;Standard</span></dt>
+            <dd>Russian Segment Station Mode - Service Module (SM)</dd>
+            <dt>RUSSEG000002 <span class="property-type">0&#x3D;Undetermined State|1&#x3D;SM KURS Equipment Set1 Operating-RS</span></dt>
+            <dd>First Kurs Equipment Kit Operating</dd>
+            <dt>RUSSEG000003 <span class="property-type">0&#x3D;Undetermined State|1&#x3D;SM KURS Equipment Set2 Operating-RS</span></dt>
+            <dd>Second Kurs Equipment Kit Operating</dd>
+            <dt>RUSSEG000004 <span class="property-type">0&#x3D;Undeterminated State|1&#x3D;SM KURS P1, P2 Failure-RS</span></dt>
+            <dd>Service Module Kurs P1, P2 Failure - Russian Segment</dd>
+            <dt>RUSSEG000005 <span class="property-type">{0:d0}</span></dt>
+            <dd>Distance from Service Module (SM) Kurs (Range)</dd>
+            <dt>RUSSEG000006 <span class="property-type">{0:f2}</span></dt>
+            <dd>Rate from Service Module (SM) Kurs (Range Rate)</dd>
+            <dt>RUSSEG000007 <span class="property-type">0&#x3D;Undetermined State|1&#x3D;SM KURS-P Test Mode-RS</span></dt>
+            <dd>Service Module (SM) Kurs-P Test Mode - Russian Segment</dd>
+            <dt>RUSSEG000008 <span class="property-type">0&#x3D;Undetermined State|1&#x3D;SM KURS-P Capture Signal -RS</span></dt>
+            <dd>Service Module (SM) Kurs-P &quot;Capture&quot; Signal Availability</dd>
+            <dt>RUSSEG000009 <span class="property-type">0&#x3D;Undetermined State|1&#x3D;SM KURS-P Target Acquisition Signal-RS</span></dt>
+            <dd>Service Module (SM) Kurs-P Target Acquisition Signal - Russian Segment</dd>
+            <dt>RUSSEG000010 <span class="property-type">0&#x3D;Undetermined State|1&#x3D;SM KURS-P Functional Mode Signal-RS</span></dt>
+            <dd>Service Module (SM) Kurs-P Functional Mode Signal - Russian Segment</dd>
+            <dt>RUSSEG000011 <span class="property-type">0&#x3D;Undetermined State|1&#x3D;SM KURS-P In Standby Mode-RS</span></dt>
+            <dd>Service Module (SM) Kurs-P Standby Mode - Russian Segment</dd>
+            <dt>RUSSEG000012 <span class="property-type">0&#x3D;Undetermined State|1&#x3D;SM Docking Flag-RS</span></dt>
+            <dd>Service Module Docking Flag</dd>
+            <dt>RUSSEG000013 <span class="property-type">0&#x3D;Undetermined State|1&#x3D;SM Docking Port Engaged from Xfer Side-RS</span></dt>
+            <dd>Service Module (SM) Forward Docking Port Engaged</dd>
+            <dt>RUSSEG000014 <span class="property-type">0&#x3D;Undetermined State|1&#x3D;SM Docking Port Engaged from Instr Compartment Side-RS</span></dt>
+            <dd>Service Module (SM) Aft Docking Port Engaged</dd>
+            <dt>RUSSEG000015 <span class="property-type">0&#x3D;Undetermined State|1&#x3D;SM Docking Port Engaged Below (along SM -Y Axis)-RS</span></dt>
+            <dd>Service Module (SM) Nadir (Down-looking) Docking Port Engaged - Along Y-Axis</dd>
+            <dt>RUSSEG000016 <span class="property-type">0&#x3D;Undetermined State|1&#x3D;FGB Bottom Docking Port Engaged (along SM -Y Axis)-RS</span></dt>
+            <dd>Functional Cargo Block (FGB) Nadir (Down-looking) Docking Port Engaged - Along Y-Axis</dd>
+            <dt>RUSSEG000017 <span class="property-type">0&#x3D;Undetermined State|1&#x3D;SM Bottom UDM Docking Port Engaged (along SM -Y Axis)-RS</span></dt>
+            <dd>Service Module (SM) Nadir (Down-looking) Universal Docking Module (UDM) Docking Port Engaged - Along Y-Axis</dd>
+            <dt>RUSSEG000018 <span class="property-type">0&#x3D;Undetermined State|1&#x3D;MRM1 Docking Port Engaged-RS</span></dt>
+            <dd>Mini Research Module (MRM) 1 Docking Port Engaged - Russian Segment</dd>
+            <dt>RUSSEG000019 <span class="property-type">0&#x3D;Undetermined State|1&#x3D;MRM2 Docking Port Engaged-RS</span></dt>
+            <dd>Mini Research Module (MRM) 2 Docking Port Engaged - Russian Segment</dd>
+            <dt>RUSSEG000020 <span class="property-type">0&#x3D;Undetermined State|1&#x3D;Docked Vehicle Hooks Closed-RS</span></dt>
+            <dd>Service Module - Docked Vehicle Hooks Closed - Russian Segment</dd>
+            <dt>RUSSEG000021 <span class="property-type">0&#x3D;Inertial Attitude|1&#x3D;LVLH SM|2&#x3D;Solar Orientation|3&#x3D;Current LVLH|4&#x3D;Current Inertial Attitude|5&#x3D;Damping|6&#x3D;TEA|7&#x3D;X-POP</span></dt>
+            <dd>Service Module - Russian Guidance, Navigation, and Control - Active Attitude Mode - Russian Segment</dd>
+            <dt>RUSSEG000022 <span class="property-type">0&#x3D;Undetermined State|1&#x3D;SM SUDN Controls the Motion (RS master)-RS</span></dt>
+            <dd>Service Module - Russian Guidance, Navigation, and Control - Motion Control - Russian Segment</dd>
+            <dt>RUSSEG000023 <span class="property-type">0&#x3D;Undetermined State|1&#x3D;SM SUDN Prepared to Free Drift Mode Transition-RS</span></dt>
+            <dd>Service Module - Russian Guidance, Navigation, and Control - Prepared to Free Drift Mode Transition - Russian Segment</dd>
+            <dt>RUSSEG000024 <span class="property-type">0&#x3D;Pre-Starting Procedure Or Thruster Operation Readiness|1&#x3D;Thruster Operation Mode is Terminated</span></dt>
+            <dd>Service Module - Russian Guidance, Navigation, and Control - Thruster Operation Mode Terminated - Russian Segment</dd>
+            <dt>S0000005 <span class="property-type">{0:f2}</span></dt>
+            <dd>Solar Alpha Rotary Joint (SARJ) Port Joint Angle Commanded Position (degrees)</dd>
+            <dt>S0000006 <span class="property-type">1&#x3D;STANDBY|2&#x3D;RESTART|3&#x3D;CHECKOUT|4&#x3D;DIRECTED_POSITION|5&#x3D;AUTOTRACK|6&#x3D;BLIND|7&#x3D;SHUTDOWN|8&#x3D;SWITCHOVER</span></dt>
+            <dd>External Thermal Control System (ETCS) - Thermal Radiator Rotating Joint (TRRJ) - Loop B - Software mode</dd>
+            <dt>S0000007 <span class="property-type">1&#x3D;STANDBY|2&#x3D;RESTART|3&#x3D;CHECKOUT|4&#x3D;DIRECTED_POSITION|5&#x3D;AUTOTRACK|6&#x3D;BLIND|7&#x3D;SHUTDOWN|8&#x3D;SWITCHOVER</span></dt>
+            <dd>External Thermal Control System (ETCS) - Thermal Radiator Rotating Joint (TRRJ) - Loop A - Software mode</dd>
+            <dt>S0000008 <span class="property-type">1&#x3D;STANDBY|2&#x3D;RESTART|3&#x3D;CHECKOUT|4&#x3D;DIRECTED_POSITION|5&#x3D;AUTOTRACK|6&#x3D;BLIND|7&#x3D;SHUTDOWN|8&#x3D;SWITCHOVER</span></dt>
+            <dd>External Primary Solar Alpha Rotary Joint (SARJ) Port Mode</dd>
+            <dt>S0000009 <span class="property-type">1&#x3D;STANDBY|2&#x3D;RESTART|3&#x3D;CHECKOUT|4&#x3D;DIRECTED_POSITION|5&#x3D;AUTOTRACK|6&#x3D;BLIND|7&#x3D;SHUTDOWN|8&#x3D;SWITCHOVER</span></dt>
+            <dd>External Primary Solar Alpha Rotary Joint (SARJ) Starboard Mode</dd>
+            <dt>USLAB000081 <span class="property-type">0&#x3D;FALSE|1&#x3D;TRUE</span></dt>
+            <dd>Attitude Maneuver In Progress status</dd>
+        </dl>
+        <h3>ADCO/TOPO</h3>
+        <dl class="message-properties">
+            <dt>USLAB000032 <span class="property-type">{0:f9}</span></dt>
+            <dd>US Guidance, Navigation and Control (GNC) J2000 Propagated State Vector - X (km)</dd>
+            <dt>USLAB000033 <span class="property-type">{0:f9}</span></dt>
+            <dd>US Guidance, Navigation and Control (GNC) J2000 Propagated State Vector - Y (km)</dd>
+            <dt>USLAB000034 <span class="property-type">{0:f9}</span></dt>
+            <dd>US Guidance, Navigation and Control (GNC) J2000 Propagated State Vector - Z (km)</dd>
+            <dt>USLAB000035 <span class="property-type">{0:f9}</span></dt>
+            <dd>US Guidance, Navigation and Control (GNC) J2000 Propagated State Vector - X (m&#x2F;s)</dd>
+            <dt>USLAB000036 <span class="property-type">{0:f9}</span></dt>
+            <dd>US Guidance, Navigation and Control (GNC) J2000 Propagated State Vector - Y (m&#x2F;s)</dd>
+            <dt>USLAB000037 <span class="property-type">{0:f9}</span></dt>
+            <dd>US Guidance, Navigation and Control (GNC) J2000 Propagated State Vector - Z (m&#x2F;s)</dd>
+        </dl>
+        <h3>ADCO/VVO</h3>
+        <dl class="message-properties">
+            <dt>RUSSEG000025 <span class="property-type">0&#x3D;0 - Reserv|1&#x3D;1 - Thrusters|2&#x3D;2 - Gyrodines|3&#x3D;3 - Gyrodines with Desaturation on American Method|4&#x3D;4 - Gyrodines with Desaturation on Russian Method|5&#x3D;5 - Translational Thrusters Operating|6&#x3D;6 - Thrusters help CMG (desaturate CMG)|7&#x3D;7 - Free Drift Mode</span></dt>
+            <dd>Service Module - Russian Guidance, Navigation, and Control - Current Dynamic Mode - Russian Segment</dd>
+            <dt>USLAB000010 <span class="property-type">{0:f2}</span></dt>
+            <dd>Control Moment Gyroscope (CMG) Momentum Percentage (%)</dd>
+            <dt>USLAB000012 <span class="property-type">0&#x3D;Default|1&#x3D;WAIT|2&#x3D;RESERVED|3&#x3D;STANDBY|4&#x3D;CMG ATTITUDE CONTROL|5&#x3D;CMG&#x2F;THRUSTER ASSIST ATTITUDE CONTROL|6&#x3D;USER DATA GENERATION|7&#x3D;FREEDRIFT</span></dt>
+            <dd>US Guidance, Navigation and Control (GNC) Mode</dd>
+        </dl>
+        <h3>CATO/VVO</h3>
+        <dl class="message-properties">
+            <dt>S1000005 <span class="property-type">{0:f2}</span></dt>
+            <dd>S-Band Radio Frequency Group (RFG 1) Elevation Gimbal Position</dd>
+        </dl>
+        <h3>ODIN/VVO</h3>
+        <dl class="message-properties">
+            <dt>USLAB000086 <span class="property-type">1&#x3D;Standard|2&#x3D;Microgravity|4&#x3D;Reboost|8&#x3D;Proximity_Ops|16&#x3D;External_Ops|32&#x3D;Survival|64&#x3D;ASCR|127&#x3D;all_modes</span></dt>
+            <dd>ISS Station Mode</dd>
+        </dl>
+        <h3>SPARTAN/VVO</h3>
+        <dl class="message-properties">
+            <dt>S0000001 <span class="property-type">{0:f1}</span></dt>
+            <dd>Starboard Thermal Radiator Rotating Joint (TRRJ) Position (degrees)</dd>
+            <dt>S0000002 <span class="property-type">{0:f1}</span></dt>
+            <dd>Port Thermal Radiator Rotating Joint (TRRJ) Position (degrees)</dd>
+            <dt>S0000003 <span class="property-type">{0:f2}</span></dt>
+            <dd>Solar Alpha Rotary Joint (SARJ) Starboard Joint Angle Position (degrees)</dd>
+            <dt>S0000004 <span class="property-type">{0:f2}</span></dt>
+            <dd>Solar Alpha Rotary Joint (SARJ) Port Joint Angle Position (degrees)</dd>
+        </dl>
+        <h3>N/A</h3>
+        <dl class="message-properties">
+            <dt>TIME_000001 <span class="property-type">%mT</span></dt>
+            <dd>Greenwich Mean Time (GMT)</dd>
+            <dt>TIME_000002 <span class="property-type">{0:d0}</span></dt>
+            <dd>Year</dd>
+        </dl>
+    </div>
+</script>
+
+<style>
+    .iss-data-streamer-help .property-type {
+        /* background-color: red; */
+        max-width: 100%;
+        white-space: normal;
+    }
+</style>
