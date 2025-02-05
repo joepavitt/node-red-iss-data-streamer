@@ -1,5 +1,7 @@
 # International Space Station Data Stream
 
+![Screenshot of Node-RED with the ISS Data Stream node in use](https://github.com/user-attachments/assets/0f06ee96-ec5d-4faa-8891-2429dcb5ca89)
+
 This is a [Node-RED](https://nodered.org/) node that wraps the I.S.S. Lightstreamer feed, emitting real-time telemetry from the International Space Station.
 
 It was heavily inspired by the [ISS Mimic Project](https://github.com/ISS-Mimic/Mimic), and this node can be used in Node-RED to create your own ISS Mimic and Dashboard.
