@@ -21,6 +21,19 @@ The node can output three different types of data:
 - **Formatted:** Each feed has a designated _type_, this output type will format the data into a more human-readable format, so numbers will display as numbers, or any feed with a key map (e.g. `0=OFF, 1=ON`) will output the human-readable format
 - **Both:** This outputs a JSON structure with the keys `raw` and `formatted`, so you can access both data types
 
+## Examples
+
+You can find example flows inside the `/examples` folder. One for a basic debug output, and another for a more advanced dashboard that uses FlowFuse Dashboard:
+
+With the following flow (included in `/examples`)
+
+![Example FlowFuse Dashboard showing some data feeds from the International Space Station](https://github.com/user-attachments/assets/7db4ce6d-e06e-44db-9a3c-dc93bd1950cd)
+
+You will build the following Dashboard:
+
+![Example FlowFuse Dashboard showing some data feeds from the International Space Station](https://github.com/user-attachments/assets/f90c6bf4-a4fd-4fcf-ba69-2c32ff11986d)
+
+
 ## Data Feeds
 
 The data included with the stream is extensive, you can toggle on/off different feeds within the node's configuration options.

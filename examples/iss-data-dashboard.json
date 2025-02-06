@@ -1,0 +1,683 @@
+[
+    {
+        "id": "1fa304805720e50a",
+        "type": "iss-data-streamer",
+        "z": "45891679380feecf",
+        "name": "Get ISS Data",
+        "outputType": "formatted",
+        "feeds": [
+            "AIRLOCK000054",
+            "NODE1000001",
+            "NODE1000002",
+            "NODE2000001",
+            "NODE2000002",
+            "NODE2000003",
+            "NODE2000004",
+            "NODE2000005",
+            "NODE2000006",
+            "NODE2000007",
+            "NODE3000009",
+            "USLAB000001",
+            "USLAB000002",
+            "USLAB000003",
+            "USLAB000004"
+        ],
+        "x": 110,
+        "y": 160,
+        "wires": [
+            [
+                "cfc0e92fa8a2dfd2",
+                "5a26ab743bb23c9c",
+                "036a3e5ed71b4005",
+                "153cbae43576feb7",
+                "7559f2003013dee7"
+            ]
+        ]
+    },
+    {
+        "id": "cfc0e92fa8a2dfd2",
+        "type": "debug",
+        "z": "45891679380feecf",
+        "name": "debug 16",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 340,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "36870a473bd3e47f",
+        "type": "ui-led",
+        "z": "45891679380feecf",
+        "name": "",
+        "group": "260d127b88bf877a",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "Control Moment Gyroscope (CMG)-1",
+        "labelPlacement": "left",
+        "labelAlignment": "flex-start",
+        "states": [
+            {
+                "value": "NOT IN USE",
+                "valueType": "str",
+                "color": "#ff0000"
+            },
+            {
+                "value": "IN USE",
+                "valueType": "str",
+                "color": "#00ff00"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showBorder": true,
+        "showGlow": true,
+        "x": 610,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "5a26ab743bb23c9c",
+        "type": "switch",
+        "z": "45891679380feecf",
+        "name": "Control Moment Gyroscopes",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "USLAB000001",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "USLAB000002",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "USLAB000003",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "USLAB000004",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 400,
+        "y": 160,
+        "wires": [
+            [
+                "36870a473bd3e47f"
+            ],
+            [
+                "3cf1244375ebde34"
+            ],
+            [
+                "b9fd1b6c0ffdf6f0"
+            ],
+            [
+                "9af44d1f67e56953"
+            ]
+        ]
+    },
+    {
+        "id": "3cf1244375ebde34",
+        "type": "ui-led",
+        "z": "45891679380feecf",
+        "name": "",
+        "group": "260d127b88bf877a",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "label": "Control Moment Gyroscope (CMG)-2",
+        "labelPlacement": "left",
+        "labelAlignment": "flex-start",
+        "states": [
+            {
+                "value": "NOT IN USE",
+                "valueType": "str",
+                "color": "#ff0000"
+            },
+            {
+                "value": "IN USE",
+                "valueType": "str",
+                "color": "#00ff00"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showBorder": true,
+        "showGlow": true,
+        "x": 610,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "b9fd1b6c0ffdf6f0",
+        "type": "ui-led",
+        "z": "45891679380feecf",
+        "name": "",
+        "group": "260d127b88bf877a",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "label": "Control Moment Gyroscope (CMG)-3",
+        "labelPlacement": "left",
+        "labelAlignment": "flex-start",
+        "states": [
+            {
+                "value": "NOT IN USE",
+                "valueType": "str",
+                "color": "#ff0000"
+            },
+            {
+                "value": "IN USE",
+                "valueType": "str",
+                "color": "#00ff00"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showBorder": true,
+        "showGlow": true,
+        "x": 610,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "9af44d1f67e56953",
+        "type": "ui-led",
+        "z": "45891679380feecf",
+        "name": "",
+        "group": "260d127b88bf877a",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "label": "Control Moment Gyroscope (CMG)-4",
+        "labelPlacement": "left",
+        "labelAlignment": "flex-start",
+        "states": [
+            {
+                "value": "NOT IN USE",
+                "valueType": "str",
+                "color": "#ff0000"
+            },
+            {
+                "value": "IN USE",
+                "valueType": "str",
+                "color": "#00ff00"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showBorder": true,
+        "showGlow": true,
+        "x": 610,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "036a3e5ed71b4005",
+        "type": "switch",
+        "z": "45891679380feecf",
+        "name": "Airlock Pressure",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "AIRLOCK000054",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 360,
+        "y": 280,
+        "wires": [
+            [
+                "c2d19ccd7796cebd",
+                "6f351626b9bf97a0"
+            ]
+        ]
+    },
+    {
+        "id": "eca48a388b8f71bc",
+        "type": "ui-gauge",
+        "z": "45891679380feecf",
+        "name": "",
+        "group": "d3c8beaf581d00d0",
+        "order": 1,
+        "width": 3,
+        "height": "4",
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Airlock Pressure",
+        "units": "PSI",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c"
+            },
+            {
+                "from": "1000",
+                "color": "#ffc800"
+            },
+            {
+                "from": "1500",
+                "color": "#ea5353"
+            }
+        ],
+        "min": 0,
+        "max": "2000",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 780,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "c2d19ccd7796cebd",
+        "type": "debug",
+        "z": "45891679380feecf",
+        "name": "debug 33",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "6f351626b9bf97a0",
+        "type": "change",
+        "z": "45891679380feecf",
+        "name": "Round (2dp)",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$round(msg.payload, 2)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 590,
+        "y": 280,
+        "wires": [
+            [
+                "eca48a388b8f71bc"
+            ]
+        ]
+    },
+    {
+        "id": "153cbae43576feb7",
+        "type": "switch",
+        "z": "45891679380feecf",
+        "name": "Tank Levels",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "NODE3000008",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "NODE3000009",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 350,
+        "y": 400,
+        "wires": [
+            [
+                "3bca84bc3a0f6c7f"
+            ],
+            [
+                "7db79a4d7637aef0"
+            ]
+        ]
+    },
+    {
+        "id": "3bca84bc3a0f6c7f",
+        "type": "ui-gauge",
+        "z": "45891679380feecf",
+        "name": "Waste Water Level",
+        "group": "5e0e25b021b2986d",
+        "order": 2,
+        "width": "2",
+        "height": "4",
+        "gtype": "gauge-tank",
+        "gstyle": "needle",
+        "title": "Waste Water Level",
+        "units": "units",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#a8f5ff"
+            },
+            {
+                "from": "15",
+                "color": "#55dbec"
+            },
+            {
+                "from": "35",
+                "color": "#53b4fd"
+            },
+            {
+                "from": "50",
+                "color": "#2397d1"
+            }
+        ],
+        "min": 0,
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 550,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "7db79a4d7637aef0",
+        "type": "ui-gauge",
+        "z": "45891679380feecf",
+        "name": "Clean Water Level",
+        "group": "5e0e25b021b2986d",
+        "order": 1,
+        "width": "2",
+        "height": "4",
+        "gtype": "gauge-tank",
+        "gstyle": "needle",
+        "title": "Clean Water Level",
+        "units": "units",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#a8f5ff"
+            },
+            {
+                "from": "15",
+                "color": "#55dbec"
+            },
+            {
+                "from": "35",
+                "color": "#53b4fd"
+            },
+            {
+                "from": "50",
+                "color": "#2397d1"
+            }
+        ],
+        "min": 0,
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 550,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "7559f2003013dee7",
+        "type": "switch",
+        "z": "45891679380feecf",
+        "name": "Air Cooling Fluid Temp (Node 2)",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "NODE2000006",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 410,
+        "y": 500,
+        "wires": [
+            [
+                "48746b676369ecb7"
+            ]
+        ]
+    },
+    {
+        "id": "48746b676369ecb7",
+        "type": "ui-chart",
+        "z": "45891679380feecf",
+        "group": "ee2a55334435985e",
+        "name": "",
+        "label": "",
+        "order": 1,
+        "chartType": "line",
+        "category": "topic",
+        "categoryType": "msg",
+        "xAxisLabel": "",
+        "xAxisProperty": "",
+        "xAxisPropertyType": "timestamp",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "CNT",
+        "yAxisProperty": "payload",
+        "yAxisPropertyType": "msg",
+        "ymin": "0",
+        "ymax": "5",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "circle",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": 1,
+        "removeOlderUnit": "3600",
+        "removeOlderPoints": "",
+        "colors": [
+            "#0095ff",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": "12",
+        "height": 8,
+        "className": "",
+        "interpolation": "linear",
+        "x": 700,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "260d127b88bf877a",
+        "type": "ui-group",
+        "name": "Control Moment Gyroscopes",
+        "page": "0889c71244d1e051",
+        "width": "5",
+        "height": "1",
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "d3c8beaf581d00d0",
+        "type": "ui-group",
+        "name": "Airlock",
+        "page": "0889c71244d1e051",
+        "width": "3",
+        "height": "1",
+        "order": 2,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "5e0e25b021b2986d",
+        "type": "ui-group",
+        "name": "Tank Levels",
+        "page": "0889c71244d1e051",
+        "width": "4",
+        "height": "1",
+        "order": 3,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "ee2a55334435985e",
+        "type": "ui-group",
+        "name": "Air Cooling Fluid Temp",
+        "page": "0889c71244d1e051",
+        "width": "12",
+        "height": "1",
+        "order": 4,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "0889c71244d1e051",
+        "type": "ui-page",
+        "name": "ISS Mimic",
+        "ui": "489cec8cde25288e",
+        "path": "/iss-mimic",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "5588643abfcc8f2d",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 1,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "489cec8cde25288e",
+        "type": "ui-base",
+        "name": "ISS Mimic",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "dashboard",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": "1",
+        "showDisconnectNotification": true
+    },
+    {
+        "id": "5588643abfcc8f2d",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#ffffff",
+            "primary": "#0094CE",
+            "bgPage": "#eeeeee",
+            "groupBg": "#ffffff",
+            "groupOutline": "#cccccc"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    }
+]

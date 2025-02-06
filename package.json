@@ -1,5 +1,5 @@
 {
-    "name": "@joepavitt/node-red-iss-data-streamer",
+    "name": "@jdp1g09/node-red-iss-data-streamer",
     "version": "0.1.0",
     "description": "Node-RED node to subscribe to the Lightstreamer data feed from the International Space Station",
     "author": {
