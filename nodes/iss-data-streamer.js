@@ -10,9 +10,13 @@ function format (value, structure) {
         const enumMap = {}
         structure.split('|').forEach(v => {
             const [key, val] = v.split('=')
+            // remove leading/trailing whitespace
+            key = key.trim()
             enumMap[key] = val
         })
         return enumMap[value]
+    } else if (structure.includes('Angle')) {
+        return Number(value)
     }
     return value
 }
@@ -60,7 +64,8 @@ module.exports = function(RED) {
                         const formatted = format(value, dictionary[PUI].Format);
                         value = {
                             raw: value,
-                            formatted: formatted
+                            formatted: formatted,
+                            units: dictionary[PUI].UNITS
                         }
                     }
                     node.send({
